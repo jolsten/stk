@@ -6,7 +6,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name="stk-jkolste",
-    version="0.1.0",
+    version="0.1.1",
     author="Jonathan Olsten",
     author_email="jonathan.olsten@us.af.mil",
     description="A succinct package to interact with AGI's Systems ToolKit (STK) via the Connect command interface",
@@ -19,5 +19,5 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.7',
 )
