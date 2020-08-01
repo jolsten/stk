@@ -6,13 +6,13 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name="stk-jkolste",
-    version="0.0.3",
+    version="0.0.9",
     author="Jonathan Olsten",
     author_email="jonathan.olsten@us.af.mil",
     description="A succinct package to interact with AGI's Systems ToolKit (STK) via the Connect command interface",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    # url="https://github.com/pypa/sampleproject",
+    url="https://github.com/jolsten/stk",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

@@ -2,21 +2,17 @@ import sys
 import socket
 import logging
 import time
+import csv
 import subprocess
 import platform
 import collections
 import os
+from io import StringIO
 from pathlib import Path
 
 STK_DATEFMT = '%d %b %Y %H:%M:%S.%f'
 
-SingleMessage = collections.namedtuple('SingleMessage', ['Command', 'Data'])
-MultiMessage  = collections.namedtuple('MultiMessage' , ['Command', 'Data'])
-
-def get_open_port():
-    with socket.socket() as s:
-        s.bind(('', 0))
-        return s.getsockname()[1]
+_DEFAULT_READ_TIMEOUT = 5
 
 from threading import Thread
 from queue import Queue, Empty
@@ -24,152 +20,206 @@ ON_POSIX = 'posix' in sys.builtin_module_names
 def enqueue_output(out, queue):
     for line in iter(out.readline, b''):
         queue.put(line)
-    out.close()    
+    out.close()
 
-class STKConnect():
-    '''
-    Connect to an (already running) instance of Systems ToolKit via socket
-    
-    Attributes
-    ----------
-    host : str (default:localhost)
-        the hostname of the instance of STK (default: localhost)
-    
-    port : int
-        the port number for the STK socket (default: 5001)
-    
-    Methods
-    -------
-    connect()
-        attempts to connect to STK via a socket
-    
-    send(message)
-        sends the specified message to STK 
-    
-    close()
-        closes the socket, if it is open
-    
-    Examples
-    --------
-    s = STKConnect()
-    s.connect()
-    s.send('Unload / *')
-    s.send(f'New / Scenario Scenario_Name')
-    s.close()
-    '''
-    def __init__(self, host='localhost', port=5001, max_attempts=5, retry_time=3):
-        self.host = host
-        self.port = int(port)
-        self.max_attempts = int(max_attempts)
-        self.retry_time = int(retry_time)
-    
-    def connect(self, **kwargs):
-        for key, value in kwargs.items(): setattr(self, key, value)
-        
-        address = (self.host, self.port)
-        
-        if hasattr(self,'socket') and type(self.socket) == 'socket':
-            logging.warning('Already connected to an STK socket!')
-            return
-        else:
-            self.socket = socket.socket()
-            attempts = 0
-            while True:
-                attempts += 1
-                try:
-                    self.socket.connect(address)
-                except ConnectionRefusedError as e:
-                    logging.debug(f'Exception caught: {e}')
-                else: # exit loop if no exceptions caught
-                    logging.info(f'Connected to STK on {self.host}:{self.port}')
-                    return
-                finally: # continue loop if any exception caught
-                    if attempts >= self.max_attempts: raise OSError(f'Could not connect to STK via socket on {self.host}:{self.port}')
-                    time.sleep(self.retry_time)
-    
-    def send(self, message):
-        try:
-            logging.debug('stk.send("%s")' % message)
-            message += "\n"
-            self.socket.send(message.encode())
-            self.get_ack(message)
-        except Exception as msg:
-            logging.error('socket send error: %s' % msg)
-            exit(1)
-    
-    def close_socket(self):
-        if hasattr(self, 'socket'):
-            logging.debug('closing socket')
-            self.socket.close()
-            del self.socket
-    
-    def close(self):
-        self.close_socket()
-    
-    def get_ack(self, message):
-        try:
-            msg = self.socket.recv(3).decode()
-            if msg == 'ACK':
-                # logging.debug('ACK Received')
-                return 1
-            elif msg == 'NAC':
-                k = self.socket.recv(1).decode()
-                msg = msg + k
-                raise Exception('NACK Received: stk.send("%s")' % message.rstrip())
-                exit(1)
-            else:
-                logging.error('received neither ACK nor NACK')
-                sys.exit(1)
-        except Exception as msg:
-            logging.error('get_ack raised exception: %s' % msg)
-    
-    def aer(self, fm, to, maxstepsize=None, minstepsize=None, fixedsamplestep=None, eventsbasedonsamples=None):
-        cmd = 'AER %s %s' % (fm, to)
-        if maxstepsize:             cmd = cmd + ' MaxStepSize %f' % float(maxstepsize)
-        if minstepsize:             cmd = cmd + ' MinStepSize %f' % float(minstepsize)
-        if fixedsamplestep:         cmd = cmd + ' FixedSampleStep %f' % float(fixedsamplestep)
-        if eventsbasedonsamples:    cmd = cmd + ' EventsBasedOnSamples %s' % eventsbasedonsamples
-        self.send(cmd)
-        
-        return self.get_aer()
-    
-    def get_aer(self):
-        msg = self.socket.recv(40).decode()
-        msg.rstrip()
-        things = msg.split(' ', maxsplit=1)
-        name = str(things[0])
-        size = int(things[1])
-    
-        ptr = 0
-        report = ''
-        while ptr < size:
-            msg = self.socket.recv(2048).decode()
-            report = report + msg
-            ptr += 2048
-        
-        return report
-    
-    def get_single_message(self):
-        header = self.socket.recv(40).decode()
-        cmd_name, length = header.rstrip().split()
-        length = int(length)
-        data = self.socket.recv(length).decode()
-        return data
-    
-    def get_multi_message(self):
-        header = self.socket.recv(40).decode()
-        cmd_name, length = header.rstrip().split()
-        data = self.socket.recv(int(length)).decode()
-        
-        messages = []
-        for i in range(int(data)):
-            sm = self.get_single_message()
-            if len(sm) > 0:
-                messages.append(sm)
-        return messages
+# def enqueue_async_messages(out, queue):
+#     for 
+
+class STKLicenseError(RuntimeError):
+    pass
+
+class STKConnectError(RuntimeError):
+    pass
+
+class STKNackError(IOError):
+    pass
+
+class AsyncHeader():
+    def __init__(self, bytestring):
+        if isinstance(bytestring, bytes): bytestring = bytestring.decode()
+        self.raw = bytestring
     
     def __repr__(self):
-        return 'stk.stk(host: %s, port: %s)' % (self.host, self.port)
+        return f'<{self.raw}>'
+    
+    @property
+    def sync(self):
+        return self.raw[0:3].decode()
+    
+    @property
+    def header_length(self):
+        return int(self.raw[3:5].decode())
+    
+    @property
+    def version(self):
+        return f'{self.major_version}.{self.minor_version}'
+    
+    @property
+    def major_version(self):
+        return int(self.raw[5].decode())
+    
+    @property
+    def minor_version(self):
+        return int(self.raw[6].decode())
+    
+    @property
+    def type_length(self):
+        return int(self.raw[7:9])
+    
+    @property
+    def async_type(self):
+        return (self.raw[9:24])[0:self.type_length]
+    
+    @property
+    def identifier(self):
+        return int(self.raw[24:30])
+    
+    @property
+    def total_packets(self):
+        return int(self.raw[30:34])
+    
+    @property
+    def packet_number(self):
+        return int(self.raw[34:38])
+    
+    @property
+    def data_length(self):
+        return int(self.raw[38:42])
+    
+class STKConnect():
+    def __init__(self, host='localhost', port=5001, connect_attempts=5, send_attempts=1, timeout=_DEFAULT_READ_TIMEOUT, ack=True):
+        self.host               = str(host)
+        self.port               = int(port)
+        self.connect_attempts   = int(connect_attempts)
+        self.send_attempts      = int(send_attempts)
+        self.ack                = bool(ack)
+        self.timeout            = timeout
+        
+        self.socket = None
+    
+    @property
+    def address(self):
+        return (self.host, self.port)
+
+    def connect(self, host=None, port=None):
+        if host is not None: self.host = str(host)
+        if port is not None: self.port = int(port)
+        
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self._connect()
+        
+        self.send('ConControl / AsyncOn')
+    
+    def _connect(self):
+        attempt = 0
+        while True:
+            attempt += 1
+            try:
+                self.socket.connect(self.address)
+            except ConnectionRefusedError as e:
+                logging.debug(f'Exception caught: {e}')
+            else: # exit loop if no exceptions caught
+                logging.info(f'Connected to STK on {self.host}:{self.port}')
+                return True
+            finally: # continue loop if any exception caught
+                if attempt >= self.connect_attempts:
+                    raise STKConnectError(f'Failed to connect to STK via socket on {self.host}:{self.port}')
+            time.sleep( 3 )
+    
+    def send(self, message, attempts=None):
+        if attempts is None: attempts = self.send_attempts
+        
+        attempt = 0
+        while True:
+            attempt += 1
+            try:
+                self._send(message)
+                if self.ack: self.get_ack(message)
+                return
+            except STKNackError as e:
+                if attempt >= attempts:
+                    logging.error(f'send() failed, received NACK too many times')
+                    raise STKNackError(e)
+    
+    def _send(self, message: str):
+        logging.debug(f'stk.send("{message}")')
+        self.socket.send( (message+'\n').encode() )
+    
+    def get_message(self):
+        msg = self.socket.recv(42).decode()
+        hdr = AsyncHeader(msg)
+        
+        pdl = hdr.data_length
+        
+        data = self.socket.recv( pdl ).decode()
+        while len(data) < hdr.data_length:
+            data += self.socket.recv( pdl - len(data) ).decode()
+        
+        return hdr, data
+    
+    def get_messages(self):
+        logging.debug('Getting Message Block:')
+        hdr, data = self.get_message()
+        
+        # if len(data) == 0: return []
+        
+        logging.debug(f'GotMessage: {hdr}{data}')
+        msg_grp = [None] * hdr.total_packets
+        msg_grp[hdr.packet_number-1] = data
+        
+        for i in range(1,hdr.total_packets):
+            hdr, data = self.get_message()
+            logging.debug(f'GotMessage: {hdr}{data}')
+            msg_grp[hdr.packet_number-1] = data
+        
+        if msg_grp[-1] == '': del msg_grp[-1]
+        return msg_grp
+    
+    def read(self, timeout=_DEFAULT_READ_TIMEOUT):
+        logging.debug('Reading until no data is left in the socket...')
+        
+        self.socket.setblocking(False)
+        self.socket.settimeout(timeout)
+        
+        buffer = b''
+        while True:
+            try:
+                buffer += self.socket.recv(4096)
+            except socket.timeout:
+                logging.debug('Timeout reached, returning buffer')
+                return buffer
+    
+    def get_ack(self, message):
+        hdr, data = self.get_message()
+        if hdr.async_type == 'ACK':
+            return True
+        elif hdr.async_type == 'NACK':
+            raise STKNackError(f'NACK Received: stk.send("{message}")')
+            
+    def report(self, ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None, **kwargs):
+        message = f'Report_RM */{ObjPath} Style "{Style}"'
+        if AccessObjectPath is not None: message += f' AccessObject {AccessObjectPath}'
+        if TimePeriod       is not None: message += f' TimePeriod {TimePeriod}'
+        if TimeStep         is not None: message += f' TimeStep {TimeStep}'
+        if AdditionalData   is not None: message += f' AdditionalData "{AdditionalData}"'
+        if Summary          is not None: message += f' Summary {Summary}'
+        if AllLines         is not None: message += f' AllLines {AllLines}'
+        
+        self.send(message)
+        
+        buffer = self.read(**kwargs).decode()
+        if len(buffer) == 0: return []
+        
+        return [  x[18:] for x in buffer.split('AGI421009REPORT_RM      ')[1:]  ]
+    
+    def close(self):
+        try:
+            self.socket.close()
+        except:
+            pass
+    
+    def __repr__(self):
+        return f'STKConnect({self.host}:{self.port})'
     
     def __del__(self):
         self.close()
@@ -196,7 +246,7 @@ class STKLaunch():
     vendorid : str
         STK license Vendor ID; apparently necessary in a Linux environment
     
-    max_attempts : int (default: 15 attempts)
+    max_attempts : int (default: 5 attempts)
         maximum number of times to attempt connecting to STK
         generally, this is a way to wait for STK to complete launching before
         the port is made available for connections
@@ -219,24 +269,20 @@ class STKLaunch():
     close()
         shut down the STK application
     '''
-    def __init__(self, host='localhost', port='auto', max_attempts=15, poll_period=3, stk_install_dir=None, stk_config_dir=None, vendorid=None, loglevel=None):
-        self.path               = self._stk_install_dir(stk_install_dir).expanduser()
+    def __init__(self, host='localhost', port=5001, max_attempts=5, stk_install_dir=None, stk_config_dir='~/', vendorid=None, port_delta=1000, timeout=_DEFAULT_READ_TIMEOUT):
+        self.path               = self._stk_install_dir(Path(stk_install_dir)).expanduser()
         self.host               = host
-        self.port               = port
+        self.port               = int(port)
         self.max_attempts       = int(max_attempts)
-        self.poll_period        = int(poll_period)
-        self.vendorid           = vendorid
+        self.vendorid           = str(vendorid)
         self.stk_install_dir    = Path(stk_install_dir).expanduser().resolve()
-        self.stk_config_dir     = Path(stk_config_dir).expanduser().resolve()
-        self.loglevel           = loglevel
+        self.stk_config_dir     = Path(stk_config_dir ).expanduser().resolve()
+        self.port_delta         = int(port_delta)
+        
+        self._timeout           = timeout
         
         self.process = None
-        self.connect = None
-        
-        self.launch()
-        
-        logging.debug('Sleeping for 5 to give STK a chance to launch')
-        time.sleep(5)
+        self._connect = None
     
     def launch(self):
         if platform.system() == 'Linux':
@@ -244,22 +290,30 @@ class STKLaunch():
             while True:
                 attempts += 1
                 try:
+                    logging.debug(f'Attempting to Launch STK & Connect ({attempts} of {self.max_attempts}) on {self.host}:{self.port}')
+                    logging.debug(f'''localhost = {os.environ.get('HOSTNAME', None)}''')
                     self._launch_linux()
-                except subprocess.CalledProcessError as e:
-                    logging.error(f'exception caught: {e}')
+                except Exception as e:
+                    logging.error(f'Exception caught: {e}')
+                    try: self.process.kill()
+                    except: pass
                 else:
                     return
                 finally:
-                    if attempts >= self.max_attempts: raise subprocess.CalledProcessError(69, self._process_call)
-                    time.sleep(self.poll_period)
+                    if attempts >= self.max_attempts: 
+                        logging.critical(f'Attempted to launch STK, exceeded max attempts ({self.max_attempts})')
+                        raise subprocess.CalledProcessError(69, self._process_call)
+                time.sleep( 3 )
                 
         elif platform.system() == 'Windows':
             self._launch_windows()
     
+    def connect(self):
+        self._connect = STKConnect(host=self.host, port=self.port, timeout=_DEFAULT_READ_TIMEOUT)
+        self._connect.connect()
+    
     def _launch_linux(self):
         app_path = self.path / 'bin' / 'connectconsole'
-        
-        if self.port == 'auto': self.port = get_open_port()
         
         call = [
             str(app_path),
@@ -267,7 +321,6 @@ class STKLaunch():
             '--noGraphics',
         ]
         if self.vendorid: call.extend(['--vendorid', str(self.vendorid)])
-        if self.loglevel: call.extend(['--log', 'information'])
         
         env = {}
         env.update(os.environ)
@@ -283,30 +336,32 @@ class STKLaunch():
         self._thread.daemon = True
         self._thread.start()
         
+        self._successfully_launched = False
         attempts = 0
         while True:
             attempts += 1
             try:
                 line = self._queue.get_nowait().decode().rstrip()
             except Empty:
-                logging.debug(f'no output yet')
-            except OSError:
-                pass
+                logging.debug(f'No output from STK yet')
+                time.sleep( 3 )
             else:
-                logging.debug(f'got output from STK: {line}')
-                if 'STK/CON: Accepting connection requests' in line:
-                    logging.info('Successfully started STK, it is accepting connection requests')
-                    logging.info('Attempting to connect via socket at {self.host}:{self.port}')
-                    try:
-                        self.connect = STKConnect(host=self.host, port=self.port)
-                        self.connect.connect()
-                    except OSError:
-                        pass
-                    else:
-                        return
+                logging.debug(f'Got output from STK: {line}')
+                if 'STK Engine Runtime license not found' in line:
+                    raise STKLicenseError('STK Engine Runtime license not found')
+                elif 'STK/CON: Error binding to socket, error' in line:
+                    logging.debug(f'STK could not bind to port={self.port}, setting port={self.port+self.port_delta} for retry')
+                    self.port += self.port_delta
+                    logging.debug(f'Changing port number to port={self.port}')
+                    raise OSError('STK/CON: Error binding to socket, error')
+                elif 'STK/CON: Accepting connection requests' in line:
+                    logging.debug(f'Successfully started STK, it is accepting connection requests at {self.host}:{self.port}')
+                    return True
             finally:
-                if attempts >= self.max_attempts: raise subprocess.CalledProcessError(66, ' '.join(call))
-                time.sleep(self.poll_period)
+                if attempts >= 5:
+                    logging.debug('Killing STK Popen to retry')
+                    self.process.kill()
+                    raise subprocess.CalledProcessError(66, ' '.join(call))
                 
     
     def _launch_windows(self):
@@ -315,8 +370,18 @@ class STKLaunch():
         call = [str(app_path), '/pers', 'STK']
         self.process = subprocess.Popen(call)
     
-    def send(self, message):
-        self.connect.send(message)
+    def send(self, message, attempts=1):
+        try:
+            self._connect.send(message, attempts=attempts)
+        except STKNackError:
+            self._dump_stk_errors()
+    
+    def report(self, *args, **kwargs):
+        try:
+            return self._connect.report(*args, **kwargs)
+        except STKNackError:
+            logging.warning('STK NACK on Report_RM')
+            if hasattr(self, '_queue'): self._dump_stk_errors()
     
     def close(self):
         self._close_connect()
@@ -324,10 +389,19 @@ class STKLaunch():
             logging.debug('Killing STK process')
             self.process.kill()
     
+    def _dump_stk_errors(self):
+        logging.critical('Dumping STK STDERR:')
+        while True:
+            try:
+                line = self._queue.get_nowait().decode().rstrip()
+                logging.critical(f'STK Said: {line}')
+            except Empty:
+                return
+    
     def _close_connect(self):
-        if hasattr(self, 'connect') and self.connect is not None:
+        if hasattr(self, 'connect') and self._connect is not None:
             logging.debug('Closing STK Connect socket')
-            self.connect.close()
+            self._connect.close()
     
     def _stk_install_dir(self, arg):
         if arg is None:
