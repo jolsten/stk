@@ -2,17 +2,13 @@ import sys
 import socket
 import logging
 import time
-import csv
 import subprocess
 import platform
-import collections
 import os
-from io import StringIO
 from pathlib import Path
 
 STK_DATEFMT = '%d %b %Y %H:%M:%S.%f'
-
-_DEFAULT_READ_TIMEOUT = 5
+_DEFAULT_TIMEOUT = 1
 
 from threading import Thread
 from queue import Queue, Empty
@@ -21,9 +17,6 @@ def enqueue_output(out, queue):
     for line in iter(out.readline, b''):
         queue.put(line)
     out.close()
-
-# def enqueue_async_messages(out, queue):
-#     for 
 
 class STKLicenseError(RuntimeError):
     pass
@@ -87,7 +80,7 @@ class AsyncHeader():
         return int(self.raw[38:42])
     
 class STKConnect():
-    def __init__(self, host='localhost', port=5001, connect_attempts=5, send_attempts=1, timeout=_DEFAULT_READ_TIMEOUT, ack=True):
+    def __init__(self, host='localhost', port=5001, connect_attempts=5, send_attempts=1, timeout=_DEFAULT_TIMEOUT, ack=True):
         self.host               = str(host)
         self.port               = int(port)
         self.connect_attempts   = int(connect_attempts)
@@ -150,7 +143,6 @@ class STKConnect():
         hdr = AsyncHeader(msg)
         
         pdl = hdr.data_length
-        
         data = self.socket.recv( pdl ).decode()
         while len(data) < hdr.data_length:
             data += self.socket.recv( pdl - len(data) ).decode()
@@ -160,8 +152,6 @@ class STKConnect():
     def get_messages(self):
         logging.debug('Getting Message Block:')
         hdr, data = self.get_message()
-        
-        # if len(data) == 0: return []
         
         logging.debug(f'GotMessage: {hdr}{data}')
         msg_grp = [None] * hdr.total_packets
@@ -175,11 +165,11 @@ class STKConnect():
         if msg_grp[-1] == '': del msg_grp[-1]
         return msg_grp
     
-    def read(self, timeout=_DEFAULT_READ_TIMEOUT):
-        logging.debug('Reading until no data is left in the socket...')
-        
+    def read(self):
         self.socket.setblocking(False)
-        self.socket.settimeout(timeout)
+        self.socket.settimeout(self.timeout)
+        
+        logging.debug('Reading until no data is left in the socket...')
         
         buffer = b''
         while True:
@@ -187,6 +177,7 @@ class STKConnect():
                 buffer += self.socket.recv(4096)
             except socket.timeout:
                 logging.debug('Timeout reached, returning buffer')
+                self.socket.settimeout(None)
                 return buffer
     
     def get_ack(self, message):
@@ -269,7 +260,7 @@ class STKLaunch():
     close()
         shut down the STK application
     '''
-    def __init__(self, host='localhost', port=5001, max_attempts=5, stk_install_dir=None, stk_config_dir='~/', vendorid=None, port_delta=1000, timeout=_DEFAULT_READ_TIMEOUT):
+    def __init__(self, host='localhost', port=5001, max_attempts=5, stk_install_dir=None, stk_config_dir='~/', vendorid=None, port_delta=1000, timeout=1):
         self.path               = self._stk_install_dir(Path(stk_install_dir)).expanduser()
         self.host               = host
         self.port               = int(port)
@@ -281,7 +272,7 @@ class STKLaunch():
         
         self._timeout           = timeout
         
-        self.process = None
+        self.process  = None
         self._connect = None
     
     def launch(self):
@@ -291,7 +282,11 @@ class STKLaunch():
                 attempts += 1
                 try:
                     logging.debug(f'Attempting to Launch STK & Connect ({attempts} of {self.max_attempts}) on {self.host}:{self.port}')
-                    logging.debug(f'''localhost = {os.environ.get('HOSTNAME', None)}''')
+                    logging.debug(f'''localhost = {os.environ.get('HOST', None)}''')
+                    
+                    running_procs = subprocess.check_output(['ps', 'aux'])
+                    
+                    logging.debug(f'current running connectconsole processes:\n{running_procs}')
                     self._launch_linux()
                 except Exception as e:
                     logging.error(f'Exception caught: {e}')
@@ -309,7 +304,7 @@ class STKLaunch():
             self._launch_windows()
     
     def connect(self):
-        self._connect = STKConnect(host=self.host, port=self.port, timeout=_DEFAULT_READ_TIMEOUT)
+        self._connect = STKConnect(host=self.host, port=self.port, timeout=_DEFAULT_TIMEOUT)
         self._connect.connect()
     
     def _launch_linux(self):

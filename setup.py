@@ -6,7 +6,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name="stk-jkolste",
-    version="0.1.1",
+    version="0.1.2",
     author="Jonathan Olsten",
     author_email="jonathan.olsten@us.af.mil",
     description="A succinct package to interact with AGI's Systems ToolKit (STK) via the Connect command interface",
