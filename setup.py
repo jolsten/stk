@@ -6,10 +6,10 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name="stk-jkolste",
-    version="0.1.2",
+    version="0.3.0",
     author="Jonathan Olsten",
     author_email="jonathan.olsten@us.af.mil",
-    description="A succinct package to interact with AGI's Systems ToolKit (STK) via the Connect command interface",
+    description="An object oriented approach to interacting with AGI's Systems ToolKit (STK) via the Connect command interface",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/jolsten/stk",
@@ -21,3 +21,5 @@ setuptools.setup(
     ],
     python_requires='>=3.7',
 )
+
+# python setup.py sdist bdist_wheel
