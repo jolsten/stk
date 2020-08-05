@@ -1,0 +1,1874 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.4" />
+<title>stk.connect API documentation</title>
+<meta name="description" content="Created on Tue Aug
+4 20:13:37 2020 …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>stk.connect</code></h1>
+</header>
+<section id="section-intro">
+<p>Created on Tue Aug
+4 20:13:37 2020</p>
+<p>@author: jolsten</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+&#34;&#34;&#34;
+Created on Tue Aug  4 20:13:37 2020
+
+@author: jolsten
+&#34;&#34;&#34;
+import sys, logging
+import socket
+import time
+
+from abc import ABCMeta, abstractmethod
+
+from .exceptions import *
+from .utils import STK_DATEFMT, inherit_docstrings
+
+class _AbstractConnect(metaclass=ABCMeta):
+    &#39;&#39;&#39;An STK Connect connection class.
+    
+    Attributes:
+        host : str
+        
+            The host on which the desired instance of STK is running.
+        
+        port : int
+            
+            The port on which the desired instance is accepting connections.
+        
+        address : tuple
+        
+            The address as a tuple (host, port)
+        
+        ack : bool
+        
+            A boolean representing whether the instance is using ACK/NACK.
+            
+            Changing this after .connect() is called will not change the mode.
+        
+        connect_attempts : int
+        
+            The maximum number of attempts at connecting to the socket.
+        
+        send_attempts : int
+        
+            Sets the default maximum number of attempts to make while calling 
+            .send() before raising STKNackError.
+        
+        timeout : float
+            
+            Sets the default timeout period for calls to .read() before 
+            assuming all data was received.
+    
+    &#39;&#39;&#39;
+    def __init__(self, **kwargs):
+        &#39;&#39;&#39;Inits an STK connection object (Connect or AsyncConnect)
+        
+        Args:
+            host : str (default: &#39;localhost&#39;)
+            
+            port : int (default: 5001)
+            
+            ack : bool (default: True)
+                Specifies whether or not to use ACK/NACK responses with STK 
+                Connect. Highly recommended to leave this to True.
+            
+            connect_attempts : int (default: 5)
+                The maximum number of attempts at connecting to the socket.
+                
+                Several attempts should be made, in case the instance of STK 
+                hasn&#39;t finished initializing by the time this is called.
+            
+            send_attempts : int (default: 1)
+                Sets the default maximum number of attempts to make while 
+                calling .send() before raising STKNackError.
+            
+            timeout : int or float (default: 1.0)
+                Sets the default timeout period for calls to .read() before 
+                assuming all data was received.
+                
+                Because network traffic is unpredictable, increasing the 
+                timeout will increase the likelihood that you receive all the 
+                data.
+                
+                However, this also adds a mandatory minimum delay before the 
+                read() function returns.
+        &#39;&#39;&#39;
+        self._kwargs = kwargs
+        
+        self.host               = str( kwargs.get(&#39;host&#39;, &#39;localhost&#39;) )
+        self.port               = int( kwargs.get(&#39;port&#39;, 5001) )
+        self.ack               = bool( kwargs.get(&#39;ack&#39;, True) )
+        self.connect_attempts   = int( kwargs.get(&#39;connect_attempts&#39;, 5) )
+        self.send_attempts      = int( kwargs.get(&#39;send_attempts&#39;, 1) )
+        self.timeout          = float( kwargs.get(&#39;timeout&#39;, 1 ) )
+        
+        self.socket = None
+    
+    @property
+    def address(self):
+        &#39;&#39;&#39;The socket address tuple.
+        
+        Args:
+            None
+            
+        Returns:
+            tuple : (host, port)
+        &#39;&#39;&#39;
+        return (self.host, self.port)
+    
+    def connect(self):
+        &#39;&#39;&#39;Connect to the STK Connect socket specified.
+        
+        Args:
+            None
+        
+        Returns:
+            None
+        
+        Raises:
+            STKConnectError : If, after .connect_attempts attempts, a
+            connection couldn&#39;t be made successfully.&#39;
+        &#39;&#39;&#39;
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        
+        time.sleep(3) # give STK a moment to start
+        self._connect()
+        
+        if type(self) == AsyncConnect:
+            self.send(f&#39;ConControl / AsyncOn&#39;)
+        
+        if self.ack is not True:
+            self.send(f&#39;ConControl / AckOff&#39;)
+    
+    def _connect(self):
+        attempt = 0
+        while True:
+            attempt += 1
+            try:
+                self.socket.connect(self.address)
+            except ConnectionRefusedError as e:
+                logging.debug(f&#39;ConnectionRefusedError: {e}&#39;)
+            else: # exit loop if no exceptions caught
+                logging.info(f&#39;Connected to STK on {self.host}:{self.port}&#39;)
+                return True
+            finally: # continue loop if any exception caught
+                if attempt &gt;= self.connect_attempts:
+                    raise STKConnectError(f&#39;Failed to connect to STK via socket on {self.host}:{self.port}&#39;)
+            time.sleep( 3 )
+    
+    def send(self, message, attempts=None):
+        &#39;&#39;&#39;Sends a Connect command via socket.
+        
+        Args:
+            message: A string containing the STK Connect command
+            
+            attempts: Optional; The maximum number of times to send the
+                command if a NACK is received.
+        
+        Returns:
+            None
+        
+        Raises:
+            STKNackError : If too many NACK responses were received from STK.
+        
+        Examples:
+            s.send(&#34;Unload / *&#34;)
+        &#39;&#39;&#39;
+        if attempts is None: attempts = self.send_attempts
+        
+        attempt = 0
+        while True:
+            attempt += 1
+            try:
+                self._send(message)
+                if self.ack: self.get_ack(message)
+                return
+            except STKNackError as e:
+                if attempt &gt;= attempts:
+                    logging.error(f&#39;send() failed, received NACK too many times&#39;)
+                    raise STKNackError(e)
+    
+    def _send(self, message: str):
+        logging.debug(f&#39;stk.send(&#34;{message}&#34;)&#39;)
+        self.socket.send( (message+&#39;\n&#39;).encode() )
+    
+    def read(self, timeout=None):
+        &#39;&#39;&#39;Read all available data from the TCP/IP socket.
+        
+        Args:
+            timeout : int or None (default: None)
+            
+                Sets the timeout period for this specific call to .read() 
+                before assuming all data was received.
+            
+                Because network traffic is unpredictable, increasing the 
+                timeout will increase the likelihood that you receive all the 
+                data.
+                
+                However, this also adds a mandatory minimum delay before the 
+                read() function returns.
+
+        Returns:
+            bytes : a bytes object containing the data received from the socket
+
+        &#39;&#39;&#39;
+        timeout = timeout
+        if timeout is None: timeout = self.timeout
+        self.socket.setblocking(False)
+        self.socket.settimeout(timeout)
+        
+        logging.debug(&#39;Reading until no data is left in the socket...&#39;)
+        
+        buffer = b&#39;&#39;
+        while True:
+            try:
+                buffer += self.socket.recv(4096)
+            except socket.timeout:
+                logging.debug(&#39;Timeout reached, returning buffer&#39;)
+                self.socket.settimeout(None)
+                return buffer
+    
+    def disconnect(self):
+        &#39;&#39;&#39;Alias of .close()&#39;&#39;&#39;
+        self.close()
+        
+    def close(self):
+        &#39;&#39;&#39;Closes the STK Connect socket.
+        
+        Args:
+            None
+        
+        Returns:
+            None
+        &#39;&#39;&#39;
+        try:
+            self.socket.close()
+        except:
+            pass
+    
+    def __repr__(self):
+        return f&#39;{type(self).__name__}({self.host}:{self.port})&#39;
+    
+    def __del__(self):
+        self.close()
+        
+    @abstractmethod
+    def get_ack(self, message):
+        &#39;&#39;&#39;Block until an ACK is received from STK Connect.
+        
+        Users should not typically need to use this method directly, as it is
+        called from .send() if the class attribute ack=True
+        
+        Args:
+            None
+        
+        Returns:
+            None
+        &#39;&#39;&#39;
+        pass
+    
+    @abstractmethod
+    def get_single_message(self):
+        pass
+    
+    @abstractmethod
+    def get_multi_message(self):
+        pass
+    
+    @abstractmethod
+    def report(self, **kwargs):
+        &#39;&#39;&#39;Create a report in STK and save it to a file.
+        
+        Args:
+            ObjPath : str (required)
+            
+                The STK Object Path for the desired report.
+                
+                e.g.
+                Facility/A_Facility_Name
+                Satellite/A_Satellite_Name
+            
+            Style : str or path-like object (required)
+            
+                The Style name, if it is already loaded into STK (or is a 
+                default report style).
+                
+                Otherwise, pass a path to the desired .RST file.
+            
+            FilePath : str or path-like object (required)
+            
+                The path to the file to which the report should be written.
+            
+            TimePeriod : str or None (default: None)
+            
+                The time period to use for the report.  If None, then use the 
+                default (typically the parent object&#39;s time period).
+                
+                Valid values:
+                    UseAccessTimes
+                    {TimeInterval}
+                    Intervals {&#34;&lt;FilePath&gt;&#34; | &#34;&lt;IntervalOrListSpec&gt;&#34;}
+                    
+                    Enter {TimeInterval} to define the start time and stop 
+                    time for the report span. For valid {TimeInterval} values 
+                    see Time Options.
+                    
+                    Or specify UseAccessTimes to only report data during 
+                    access times between the &lt;ObjectPath&gt; and an AccessObject, 
+                    but you must also specify at least one AccessObject.
+
+                    Or use the Intervals option to specify an STK interval
+                    file for the time period or an Interval or Interval List 
+                    component specification. 
+                    
+                    For help on creating the STK interval file, 
+                    see Create &amp; Import External Files - Interval List 
+                    in STK Help.
+                    
+                    For information about &#34;&lt;IntervalOrListSpec&gt;&#34; see 
+                    Component Specification.
+                    
+                    See STK Help for more details on these options.
+            
+            TimeStep : float or str (default: None)
+            
+                The timestep to use for the report. If None, then use the 
+                default (typically the parent object&#39;s timestep).
+                
+                Valid values:
+                    &lt;Value&gt;
+                    Bound &lt;Value&gt;
+                    Array &#34;&lt;TimeArraySpec&gt;&#34;
+                
+                    Enter the time step &lt;Value&gt; to be used in creating the 
+                    report. This value is entered in seconds and must be 
+                    between 0.000001 and 1000000000.0 seconds.
+                    
+                    Or enter Bound &lt;Value&gt; to have the report steps calculated
+                    on a specific time boundary. This value is entered in 
+                    seconds and must be between 0 and 3600 seconds. If 0 is 
+                    entered then the default time step (usually 60 seconds) is 
+                    used.
+
+                    Or enter the Array keyword with a Time Array component 
+                    specification to use the array times as time steps. For 
+                    information about &#34;&lt;TimeArraySpec&gt;&#34; 
+                    see Component Specification.
+            
+            AdditionalData : str or None (default: None)
+            
+                Some Report Styles require additional or pre-data, such as a 
+                comparison object for the RIC report for a Satellite. For these
+                types of reports you must include this option. More information
+                on styles that require AdditionalData can be found at &#34;Report 
+                Additional Data&#34; in the STK Help.
+            
+            Summary : str or None (default: None)
+            
+                Summary data is not generally included. Use this option, to 
+                have the summary data included in the exported report file.
+                
+                Valid values:
+                    Include 
+                    Only
+                
+                Specify the Include value to have the summary included with the
+                rest of the report; use the Only value to have only the summary
+                data reported. 
+                
+        Returns:
+            None
+        &#39;&#39;&#39;
+        pass
+    
+    @abstractmethod
+    def report_rm(self, **kwargs):
+        &#39;&#39;&#39;Create a report in STK and return them via socket.
+        
+        Args:
+            ObjPath : str (required)
+            
+                The STK Object Path for the desired report.
+                
+                e.g.
+                Facility/A_Facility_Name
+                Satellite/A_Satellite_Name
+            
+            Style : str or path-like object (required)
+            
+                The Style name, if it is already loaded into STK (or is a 
+                default report style).
+                
+                Otherwise, pass a path to the desired .RST file.
+            
+            TimePeriod : str or None (default: None)
+            
+                The time period to use for the report.  If None, then use the
+                default (typically the parent object&#39;s time period).
+                
+                Valid values:
+                    UseAccessTimes
+                    {TimeInterval}
+                    Intervals {&#34;&lt;FilePath&gt;&#34; | &#34;&lt;IntervalOrListSpec&gt;&#34;}
+                    
+                    Enter {TimeInterval} to define the start time and stop time
+                    for the report span. For valid {TimeInterval} values see
+                    Time Options.
+                    
+                    Or specify UseAccessTimes to only report data during access
+                    times between the &lt;ObjectPath&gt; and an AccessObject, but you
+                    must also specify at least one AccessObject.
+
+                    Or use the Intervals option to specify an STK interval file
+                    for the time period or an Interval or Interval List 
+                    component specification. 
+                    
+                    For help on creating the STK interval file, see Create &amp; 
+                    Import External Files - Interval List in STK Help.
+                    
+                    For information about &#34;&lt;IntervalOrListSpec&gt;&#34; 
+                    see Component Specification.
+                    
+                    See STK Help for more details on these options.
+            
+            TimeStep : float or str
+            
+                The timestep to use for the report. If None, then use the 
+                default (typically the parent object&#39;s timestep).
+                
+                Valid values:
+                    &lt;Value&gt;
+                    Bound &lt;Value&gt;
+                    Array &#34;&lt;TimeArraySpec&gt;&#34;
+                
+                    Enter the time step &lt;Value&gt; to be used in creating the 
+                    report. This value is entered in seconds and must be 
+                    between 0.000001 and 1000000000.0 seconds.
+                    
+                    Or enter Bound &lt;Value&gt; to have the report steps calculated
+                    on a specific time boundary. This value is entered in 
+                    seconds and must be between 0 and 3600 seconds. If 0 is 
+                    entered then the default time step (usually 60 seconds) is 
+                    used.
+
+                    Or enter the Array keyword with a Time Array component 
+                    specification to use the array times as time steps. For 
+                    information about &#34;&lt;TimeArraySpec&gt;&#34; 
+                    see Component Specification.
+            
+            AdditionalData : 
+                
+                Some Report Styles require additional or pre-data, such as a 
+                comparison object for the RIC report for a Satellite. For these
+                types of reports you must include this option. More information
+                on styles that require AdditionalData can be found at 
+                &#34;Report Additional Data&#34; in the STK Help.
+                
+            Summary : str
+                
+                Valid values:
+                    Include 
+                    Only
+                    
+                    Summary data is not generally included. Use this option, to
+                    have the summary data included in the exported report file.
+                    Specify the Include value to have the summary included with
+                    the rest of the report; use the Only value to have only the
+                    summary data reported. 
+                    
+        Returns:
+            None
+        &#39;&#39;&#39;
+        pass
+
+
+class Connect(_AbstractConnect):
+    @inherit_docstrings
+    def get_ack(self, message):
+        msg = self.socket.recv(3).decode()
+        if msg == &#39;ACK&#39;:
+            logging.debug(&#39;ACK Received&#39;)
+            return
+        elif msg == &#39;NAC&#39;:
+            k = self.socket.recv(1).decode()
+            msg = msg + k
+            raise STKNackError(f&#39;NACK Received: stk.send(&#34;{message.rstrip()}&#34;)&#39;)
+        else:
+            logging.error(f&#39;Expecting ACK or NACK, got: {msg}{self.socket.recv(2048)}&#39;)
+            sys.exit(1)
+    
+    def get_single_message(self):
+        header = self.socket.recv(40).decode()
+        cmd_name, length = header.rstrip().split()
+        length = int(length)
+        data = self.socket.recv(length).decode()
+        return header, data
+    
+    def get_multi_message(self):
+        hdr, data = self.get_single_message()
+        
+        messages = []
+        for i in range(int(data)):
+            sm = self.get_single_message()
+            if len(sm) &gt; 0:
+                messages.append(sm)
+        return messages
+    
+    @inherit_docstrings
+    def report(self, ObjPath, Style, FilePath, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None):
+        message = f&#39;ReportCreate */{ObjPath} Style &#34;{Style}&#34; Type &#34;Export&#34; File &#34;{FilePath}&#34;&#39;
+        if AccessObjectPath is not None: message += f&#39; AccessObject {AccessObjectPath}&#39;
+        if TimePeriod       is not None: message += f&#39; TimePeriod {TimePeriod}&#39;
+        if TimeStep         is not None: message += f&#39; TimeStep {TimeStep}&#39;
+        if AdditionalData   is not None: message += f&#39; AdditionalData &#34;{AdditionalData}&#34;&#39;
+        if Summary          is not None: message += f&#39; Summary {Summary}&#39;
+        if AllLines         is not None: message += f&#39; AllLines {AllLines}&#39;
+        
+        self.send(message)
+    
+    @inherit_docstrings
+    def report_rm(self, ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None, **kwargs):
+        message = f&#39;Report_RM */{ObjPath} Style &#34;{Style}&#34;&#39;
+        if AccessObjectPath is not None: message += f&#39; AccessObject {AccessObjectPath}&#39;
+        if TimePeriod       is not None: message += f&#39; TimePeriod {TimePeriod}&#39;
+        if TimeStep         is not None: message += f&#39; TimeStep {TimeStep}&#39;
+        if AdditionalData   is not None: message += f&#39; AdditionalData &#34;{AdditionalData}&#34;&#39;
+        if Summary          is not None: message += f&#39; Summary {Summary}&#39;
+        if AllLines         is not None: message += f&#39; AllLines {AllLines}&#39;
+        
+        self.send(message)
+        
+        buffer = self.read(**kwargs).decode()
+        if len(buffer) == 0: return []
+        
+        logging.debug(f&#39;Report_RM Returned: {buffer}&#39;)
+        return []
+
+
+class AsyncConnect(_AbstractConnect):
+    @inherit_docstrings
+    def get_ack(self, message):
+        hdr, data = self.get_single_message()
+        if hdr.async_type == &#39;ACK&#39;:
+            return True
+        elif hdr.async_type == &#39;NACK&#39;:
+            raise STKNackError(f&#39;NACK Received: stk.send(&#34;{message}&#34;)&#39;)
+    
+    def get_single_message(self):
+        msg = self.socket.recv(42).decode()
+        hdr = AsyncHeader(msg)
+        
+        pdl = hdr.data_length
+        data = self.socket.recv( pdl ).decode()
+        while len(data) &lt; hdr.data_length:
+            data += self.socket.recv( pdl - len(data) ).decode()
+        
+        return hdr, data
+    
+    def get_multi_message(self):
+        logging.debug(&#39;Getting Message Block:&#39;)
+        hdr, data = self.get_single_message()
+        
+        logging.debug(f&#39;GotMessage: {hdr}{data}&#39;)
+        msg_grp = [None] * hdr.total_packets
+        msg_grp[hdr.packet_number-1] = data
+        
+        for i in range(1,hdr.total_packets):
+            hdr, data = self.get_message()
+            logging.debug(f&#39;GotMessage: {hdr}{data}&#39;)
+            msg_grp[hdr.packet_number-1] = data
+        
+        if msg_grp[-1] == &#39;&#39;: del msg_grp[-1]
+        return msg_grp
+    
+    @inherit_docstrings
+    def report(self, ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None):
+        message = f&#39;ReportCreate */{ObjPath} Style &#34;{Style}&#34;&#39;
+        if AccessObjectPath is not None: message += f&#39; AccessObject {AccessObjectPath}&#39;
+        if TimePeriod       is not None: message += f&#39; TimePeriod {TimePeriod}&#39;
+        if TimeStep         is not None: message += f&#39; TimeStep {TimeStep}&#39;
+        if AdditionalData   is not None: message += f&#39; AdditionalData &#34;{AdditionalData}&#34;&#39;
+        if Summary          is not None: message += f&#39; Summary {Summary}&#39;
+        if AllLines         is not None: message += f&#39; AllLines {AllLines}&#39;
+        
+        self.send(message)
+    
+    @inherit_docstrings
+    def report_rm(self, ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None, **kwargs):
+        message = f&#39;Report_RM */{ObjPath} Style &#34;{Style}&#34;&#39;
+        if AccessObjectPath is not None: message += f&#39; AccessObject {AccessObjectPath}&#39;
+        if TimePeriod       is not None: message += f&#39; TimePeriod {TimePeriod}&#39;
+        if TimeStep         is not None: message += f&#39; TimeStep {TimeStep}&#39;
+        if AdditionalData   is not None: message += f&#39; AdditionalData &#34;{AdditionalData}&#34;&#39;
+        if Summary          is not None: message += f&#39; Summary {Summary}&#39;
+        if AllLines         is not None: message += f&#39; AllLines {AllLines}&#39;
+        
+        self.send(message)
+        
+        buffer = self.read(**kwargs).decode()
+        if len(buffer) == 0: return []
+        
+        return [  x[18:] for x in buffer.split(&#39;AGI421009REPORT_RM      &#39;)[1:]  ]
+
+
+class AsyncHeader():
+    &#39;&#39;&#39;A helper class to read the STK Connect Asynchronous Message Format headers.&#39;&#39;&#39;
+    
+    def __init__(self, bytestring):
+        &#39;&#39;&#39;Inits a new object using the raw values, passed as bytes or str.&#39;&#39;&#39;
+        if isinstance(bytestring, bytes): bytestring = bytestring.decode()
+        self.raw = bytestring
+    
+    def __repr__(self):
+        return f&#39;&lt;{self.raw}&gt;&#39;
+    
+    @property
+    def sync(self):
+        &#39;&#39;&#39;str : The sync word, should always be &#34;AGI&#34;&#39;&#39;&#39;
+        return self.raw[0:3].decode()
+    
+    @property
+    def header_length(self):
+        &#39;&#39;&#39;int : The header_length, should always be 42.&#39;&#39;&#39;
+        return int(self.raw[3:5].decode())
+    
+    @property
+    def version(self):
+        &#39;&#39;&#39;str : The version in major.minor format.&#39;&#39;&#39;
+        return f&#39;{self.major_version}.{self.minor_version}&#39;
+    
+    @property
+    def major_version(self):
+        &#39;&#39;&#39;int : The major version number.&#39;&#39;&#39;
+        return int(self.raw[5].decode())
+    
+    @property
+    def minor_version(self):
+        &#39;&#39;&#39;int : The minor version number.&#39;&#39;&#39;
+        return int(self.raw[6].decode())
+    
+    @property
+    def type_length(self):
+        &#39;&#39;&#39;int : The length of the command type string.&#39;&#39;&#39;
+        return int(self.raw[7:9])
+    
+    @property
+    def async_type(self):
+        &#39;&#39;&#39;str : The value of the command type string.&#39;&#39;&#39;
+        return (self.raw[9:24])[0:self.type_length]
+    
+    @property
+    def identifier(self):
+        &#39;&#39;&#39;int : The value of the response ID.
+        
+            This should be used to associate the correct responses with each 
+            other if commands are being processed asynchronously.
+        &#39;&#39;&#39;
+        
+        return int(self.raw[24:30])
+    
+    @property
+    def total_packets(self):
+        &#39;&#39;&#39;int : The total number of packets in the current identifier.&#39;&#39;&#39;
+        return int(self.raw[30:34])
+    
+    @property
+    def packet_number(self):
+        &#39;&#39;&#39;int : The sequence number of the current packet for this identifier.&#39;&#39;&#39;
+        return int(self.raw[34:38])
+    
+    @property
+    def data_length(self):
+        &#39;&#39;&#39;int : The length of the data field for the current packet.&#39;&#39;&#39;
+        return int(self.raw[38:42])</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="stk.connect.AsyncConnect"><code class="flex name class">
+<span>class <span class="ident">AsyncConnect</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>An STK Connect connection class.</p>
+<h2 id="attributes">Attributes</h2>
+<p>host : str</p>
+<pre><code>The host on which the desired instance of STK is running.
+</code></pre>
+<p>port : int</p>
+<pre><code>The port on which the desired instance is accepting connections.
+</code></pre>
+<p>address : tuple</p>
+<pre><code>The address as a tuple (host, port)
+</code></pre>
+<p>ack : bool</p>
+<pre><code>A boolean representing whether the instance is using ACK/NACK.
+
+Changing this after .connect() is called will not change the mode.
+</code></pre>
+<p>connect_attempts : int</p>
+<pre><code>The maximum number of attempts at connecting to the socket.
+</code></pre>
+<p>send_attempts : int</p>
+<pre><code>Sets the default maximum number of attempts to make while calling 
+.send() before raising STKNackError.
+</code></pre>
+<p>timeout : float</p>
+<pre><code>Sets the default timeout period for calls to .read() before 
+assuming all data was received.
+</code></pre>
+<p>Inits an STK connection object (Connect or AsyncConnect)</p>
+<h2 id="args">Args</h2>
+<p>host : str (default: 'localhost')</p>
+<p>port : int (default: 5001)</p>
+<p>ack : bool (default: True)
+Specifies whether or not to use ACK/NACK responses with STK
+Connect. Highly recommended to leave this to True.</p>
+<p>connect_attempts : int (default: 5)
+The maximum number of attempts at connecting to the socket.</p>
+<pre><code>Several attempts should be made, in case the instance of STK 
+hasn't finished initializing by the time this is called.
+</code></pre>
+<p>send_attempts : int (default: 1)
+Sets the default maximum number of attempts to make while
+calling .send() before raising STKNackError.</p>
+<p>timeout : int or float (default: 1.0)
+Sets the default timeout period for calls to .read() before
+assuming all data was received.</p>
+<pre><code>Because network traffic is unpredictable, increasing the 
+timeout will increase the likelihood that you receive all the 
+data.
+
+However, this also adds a mandatory minimum delay before the 
+read() function returns.
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AsyncConnect(_AbstractConnect):
+    @inherit_docstrings
+    def get_ack(self, message):
+        hdr, data = self.get_single_message()
+        if hdr.async_type == &#39;ACK&#39;:
+            return True
+        elif hdr.async_type == &#39;NACK&#39;:
+            raise STKNackError(f&#39;NACK Received: stk.send(&#34;{message}&#34;)&#39;)
+    
+    def get_single_message(self):
+        msg = self.socket.recv(42).decode()
+        hdr = AsyncHeader(msg)
+        
+        pdl = hdr.data_length
+        data = self.socket.recv( pdl ).decode()
+        while len(data) &lt; hdr.data_length:
+            data += self.socket.recv( pdl - len(data) ).decode()
+        
+        return hdr, data
+    
+    def get_multi_message(self):
+        logging.debug(&#39;Getting Message Block:&#39;)
+        hdr, data = self.get_single_message()
+        
+        logging.debug(f&#39;GotMessage: {hdr}{data}&#39;)
+        msg_grp = [None] * hdr.total_packets
+        msg_grp[hdr.packet_number-1] = data
+        
+        for i in range(1,hdr.total_packets):
+            hdr, data = self.get_message()
+            logging.debug(f&#39;GotMessage: {hdr}{data}&#39;)
+            msg_grp[hdr.packet_number-1] = data
+        
+        if msg_grp[-1] == &#39;&#39;: del msg_grp[-1]
+        return msg_grp
+    
+    @inherit_docstrings
+    def report(self, ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None):
+        message = f&#39;ReportCreate */{ObjPath} Style &#34;{Style}&#34;&#39;
+        if AccessObjectPath is not None: message += f&#39; AccessObject {AccessObjectPath}&#39;
+        if TimePeriod       is not None: message += f&#39; TimePeriod {TimePeriod}&#39;
+        if TimeStep         is not None: message += f&#39; TimeStep {TimeStep}&#39;
+        if AdditionalData   is not None: message += f&#39; AdditionalData &#34;{AdditionalData}&#34;&#39;
+        if Summary          is not None: message += f&#39; Summary {Summary}&#39;
+        if AllLines         is not None: message += f&#39; AllLines {AllLines}&#39;
+        
+        self.send(message)
+    
+    @inherit_docstrings
+    def report_rm(self, ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None, **kwargs):
+        message = f&#39;Report_RM */{ObjPath} Style &#34;{Style}&#34;&#39;
+        if AccessObjectPath is not None: message += f&#39; AccessObject {AccessObjectPath}&#39;
+        if TimePeriod       is not None: message += f&#39; TimePeriod {TimePeriod}&#39;
+        if TimeStep         is not None: message += f&#39; TimeStep {TimeStep}&#39;
+        if AdditionalData   is not None: message += f&#39; AdditionalData &#34;{AdditionalData}&#34;&#39;
+        if Summary          is not None: message += f&#39; Summary {Summary}&#39;
+        if AllLines         is not None: message += f&#39; AllLines {AllLines}&#39;
+        
+        self.send(message)
+        
+        buffer = self.read(**kwargs).decode()
+        if len(buffer) == 0: return []
+        
+        return [  x[18:] for x in buffer.split(&#39;AGI421009REPORT_RM      &#39;)[1:]  ]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>stk.connect._AbstractConnect</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="stk.connect.AsyncConnect.get_ack"><code class="name flex">
+<span>def <span class="ident">get_ack</span></span>(<span>self, message)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Block until an ACK is received from STK Connect.</p>
+<p>Users should not typically need to use this method directly, as it is
+called from .send() if the class attribute ack=True</p>
+<h2 id="args">Args</h2>
+<p>None</p>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@inherit_docstrings
+def get_ack(self, message):
+    hdr, data = self.get_single_message()
+    if hdr.async_type == &#39;ACK&#39;:
+        return True
+    elif hdr.async_type == &#39;NACK&#39;:
+        raise STKNackError(f&#39;NACK Received: stk.send(&#34;{message}&#34;)&#39;)</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.AsyncConnect.get_multi_message"><code class="name flex">
+<span>def <span class="ident">get_multi_message</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_multi_message(self):
+    logging.debug(&#39;Getting Message Block:&#39;)
+    hdr, data = self.get_single_message()
+    
+    logging.debug(f&#39;GotMessage: {hdr}{data}&#39;)
+    msg_grp = [None] * hdr.total_packets
+    msg_grp[hdr.packet_number-1] = data
+    
+    for i in range(1,hdr.total_packets):
+        hdr, data = self.get_message()
+        logging.debug(f&#39;GotMessage: {hdr}{data}&#39;)
+        msg_grp[hdr.packet_number-1] = data
+    
+    if msg_grp[-1] == &#39;&#39;: del msg_grp[-1]
+    return msg_grp</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.AsyncConnect.get_single_message"><code class="name flex">
+<span>def <span class="ident">get_single_message</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_single_message(self):
+    msg = self.socket.recv(42).decode()
+    hdr = AsyncHeader(msg)
+    
+    pdl = hdr.data_length
+    data = self.socket.recv( pdl ).decode()
+    while len(data) &lt; hdr.data_length:
+        data += self.socket.recv( pdl - len(data) ).decode()
+    
+    return hdr, data</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.AsyncConnect.report"><code class="name flex">
+<span>def <span class="ident">report</span></span>(<span>self, ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a report in STK and save it to a file.</p>
+<h2 id="args">Args</h2>
+<p>ObjPath : str (required)</p>
+<pre><code>The STK Object Path for the desired report.
+
+e.g.
+Facility/A_Facility_Name
+Satellite/A_Satellite_Name
+</code></pre>
+<p>Style : str or path-like object (required)</p>
+<pre><code>The Style name, if it is already loaded into STK (or is a 
+default report style).
+
+Otherwise, pass a path to the desired .RST file.
+</code></pre>
+<p>FilePath : str or path-like object (required)</p>
+<pre><code>The path to the file to which the report should be written.
+</code></pre>
+<p>TimePeriod : str or None (default: None)</p>
+<pre><code>The time period to use for the report.  If None, then use the 
+default (typically the parent object's time period).
+
+Valid values:
+    UseAccessTimes
+    {TimeInterval}
+    Intervals {"&lt;FilePath&gt;" | "&lt;IntervalOrListSpec&gt;"}
+
+    Enter {TimeInterval} to define the start time and stop 
+    time for the report span. For valid {TimeInterval} values 
+    see Time Options.
+
+    Or specify UseAccessTimes to only report data during 
+    access times between the &lt;ObjectPath&gt; and an AccessObject, 
+    but you must also specify at least one AccessObject.
+
+    Or use the Intervals option to specify an STK interval
+    file for the time period or an Interval or Interval List 
+    component specification.
+
+    For help on creating the STK interval file, 
+    see Create &amp; Import External Files - Interval List 
+    in STK Help.
+
+    For information about "&lt;IntervalOrListSpec&gt;" see 
+    Component Specification.
+
+    See STK Help for more details on these options.
+</code></pre>
+<p>TimeStep : float or str (default: None)</p>
+<pre><code>The timestep to use for the report. If None, then use the 
+default (typically the parent object's timestep).
+
+Valid values:
+    &lt;Value&gt;
+    Bound &lt;Value&gt;
+    Array "&lt;TimeArraySpec&gt;"
+
+    Enter the time step &lt;Value&gt; to be used in creating the 
+    report. This value is entered in seconds and must be 
+    between 0.000001 and 1000000000.0 seconds.
+
+    Or enter Bound &lt;Value&gt; to have the report steps calculated
+    on a specific time boundary. This value is entered in 
+    seconds and must be between 0 and 3600 seconds. If 0 is 
+    entered then the default time step (usually 60 seconds) is 
+    used.
+
+    Or enter the Array keyword with a Time Array component 
+    specification to use the array times as time steps. For 
+    information about "&lt;TimeArraySpec&gt;" 
+    see Component Specification.
+</code></pre>
+<p>AdditionalData : str or None (default: None)</p>
+<pre><code>Some Report Styles require additional or pre-data, such as a 
+comparison object for the RIC report for a Satellite. For these
+types of reports you must include this option. More information
+on styles that require AdditionalData can be found at "Report 
+Additional Data" in the STK Help.
+</code></pre>
+<p>Summary : str or None (default: None)</p>
+<pre><code>Summary data is not generally included. Use this option, to 
+have the summary data included in the exported report file.
+
+Valid values:
+    Include 
+    Only
+
+Specify the Include value to have the summary included with the
+rest of the report; use the Only value to have only the summary
+data reported.
+</code></pre>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@inherit_docstrings
+def report(self, ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None):
+    message = f&#39;ReportCreate */{ObjPath} Style &#34;{Style}&#34;&#39;
+    if AccessObjectPath is not None: message += f&#39; AccessObject {AccessObjectPath}&#39;
+    if TimePeriod       is not None: message += f&#39; TimePeriod {TimePeriod}&#39;
+    if TimeStep         is not None: message += f&#39; TimeStep {TimeStep}&#39;
+    if AdditionalData   is not None: message += f&#39; AdditionalData &#34;{AdditionalData}&#34;&#39;
+    if Summary          is not None: message += f&#39; Summary {Summary}&#39;
+    if AllLines         is not None: message += f&#39; AllLines {AllLines}&#39;
+    
+    self.send(message)</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.AsyncConnect.report_rm"><code class="name flex">
+<span>def <span class="ident">report_rm</span></span>(<span>self, ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a report in STK and return them via socket.</p>
+<h2 id="args">Args</h2>
+<p>ObjPath : str (required)</p>
+<pre><code>The STK Object Path for the desired report.
+
+e.g.
+Facility/A_Facility_Name
+Satellite/A_Satellite_Name
+</code></pre>
+<p>Style : str or path-like object (required)</p>
+<pre><code>The Style name, if it is already loaded into STK (or is a 
+default report style).
+
+Otherwise, pass a path to the desired .RST file.
+</code></pre>
+<p>TimePeriod : str or None (default: None)</p>
+<pre><code>The time period to use for the report.  If None, then use the
+default (typically the parent object's time period).
+
+Valid values:
+    UseAccessTimes
+    {TimeInterval}
+    Intervals {"&lt;FilePath&gt;" | "&lt;IntervalOrListSpec&gt;"}
+
+    Enter {TimeInterval} to define the start time and stop time
+    for the report span. For valid {TimeInterval} values see
+    Time Options.
+
+    Or specify UseAccessTimes to only report data during access
+    times between the &lt;ObjectPath&gt; and an AccessObject, but you
+    must also specify at least one AccessObject.
+
+    Or use the Intervals option to specify an STK interval file
+    for the time period or an Interval or Interval List 
+    component specification.
+
+    For help on creating the STK interval file, see Create &amp; 
+    Import External Files - Interval List in STK Help.
+
+    For information about "&lt;IntervalOrListSpec&gt;" 
+    see Component Specification.
+
+    See STK Help for more details on these options.
+</code></pre>
+<p>TimeStep : float or str</p>
+<pre><code>The timestep to use for the report. If None, then use the 
+default (typically the parent object's timestep).
+
+Valid values:
+    &lt;Value&gt;
+    Bound &lt;Value&gt;
+    Array "&lt;TimeArraySpec&gt;"
+
+    Enter the time step &lt;Value&gt; to be used in creating the 
+    report. This value is entered in seconds and must be 
+    between 0.000001 and 1000000000.0 seconds.
+
+    Or enter Bound &lt;Value&gt; to have the report steps calculated
+    on a specific time boundary. This value is entered in 
+    seconds and must be between 0 and 3600 seconds. If 0 is 
+    entered then the default time step (usually 60 seconds) is 
+    used.
+
+    Or enter the Array keyword with a Time Array component 
+    specification to use the array times as time steps. For 
+    information about "&lt;TimeArraySpec&gt;" 
+    see Component Specification.
+</code></pre>
+<p>AdditionalData : </p>
+<pre><code>Some Report Styles require additional or pre-data, such as a 
+comparison object for the RIC report for a Satellite. For these
+types of reports you must include this option. More information
+on styles that require AdditionalData can be found at 
+"Report Additional Data" in the STK Help.
+</code></pre>
+<p>Summary : str</p>
+<pre><code>Valid values:
+    Include 
+    Only
+
+    Summary data is not generally included. Use this option, to
+    have the summary data included in the exported report file.
+    Specify the Include value to have the summary included with
+    the rest of the report; use the Only value to have only the
+    summary data reported.
+</code></pre>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@inherit_docstrings
+def report_rm(self, ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None, **kwargs):
+    message = f&#39;Report_RM */{ObjPath} Style &#34;{Style}&#34;&#39;
+    if AccessObjectPath is not None: message += f&#39; AccessObject {AccessObjectPath}&#39;
+    if TimePeriod       is not None: message += f&#39; TimePeriod {TimePeriod}&#39;
+    if TimeStep         is not None: message += f&#39; TimeStep {TimeStep}&#39;
+    if AdditionalData   is not None: message += f&#39; AdditionalData &#34;{AdditionalData}&#34;&#39;
+    if Summary          is not None: message += f&#39; Summary {Summary}&#39;
+    if AllLines         is not None: message += f&#39; AllLines {AllLines}&#39;
+    
+    self.send(message)
+    
+    buffer = self.read(**kwargs).decode()
+    if len(buffer) == 0: return []
+    
+    return [  x[18:] for x in buffer.split(&#39;AGI421009REPORT_RM      &#39;)[1:]  ]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="stk.connect.AsyncHeader"><code class="flex name class">
+<span>class <span class="ident">AsyncHeader</span></span>
+<span>(</span><span>bytestring)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A helper class to read the STK Connect Asynchronous Message Format headers.</p>
+<p>Inits a new object using the raw values, passed as bytes or str.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AsyncHeader():
+    &#39;&#39;&#39;A helper class to read the STK Connect Asynchronous Message Format headers.&#39;&#39;&#39;
+    
+    def __init__(self, bytestring):
+        &#39;&#39;&#39;Inits a new object using the raw values, passed as bytes or str.&#39;&#39;&#39;
+        if isinstance(bytestring, bytes): bytestring = bytestring.decode()
+        self.raw = bytestring
+    
+    def __repr__(self):
+        return f&#39;&lt;{self.raw}&gt;&#39;
+    
+    @property
+    def sync(self):
+        &#39;&#39;&#39;str : The sync word, should always be &#34;AGI&#34;&#39;&#39;&#39;
+        return self.raw[0:3].decode()
+    
+    @property
+    def header_length(self):
+        &#39;&#39;&#39;int : The header_length, should always be 42.&#39;&#39;&#39;
+        return int(self.raw[3:5].decode())
+    
+    @property
+    def version(self):
+        &#39;&#39;&#39;str : The version in major.minor format.&#39;&#39;&#39;
+        return f&#39;{self.major_version}.{self.minor_version}&#39;
+    
+    @property
+    def major_version(self):
+        &#39;&#39;&#39;int : The major version number.&#39;&#39;&#39;
+        return int(self.raw[5].decode())
+    
+    @property
+    def minor_version(self):
+        &#39;&#39;&#39;int : The minor version number.&#39;&#39;&#39;
+        return int(self.raw[6].decode())
+    
+    @property
+    def type_length(self):
+        &#39;&#39;&#39;int : The length of the command type string.&#39;&#39;&#39;
+        return int(self.raw[7:9])
+    
+    @property
+    def async_type(self):
+        &#39;&#39;&#39;str : The value of the command type string.&#39;&#39;&#39;
+        return (self.raw[9:24])[0:self.type_length]
+    
+    @property
+    def identifier(self):
+        &#39;&#39;&#39;int : The value of the response ID.
+        
+            This should be used to associate the correct responses with each 
+            other if commands are being processed asynchronously.
+        &#39;&#39;&#39;
+        
+        return int(self.raw[24:30])
+    
+    @property
+    def total_packets(self):
+        &#39;&#39;&#39;int : The total number of packets in the current identifier.&#39;&#39;&#39;
+        return int(self.raw[30:34])
+    
+    @property
+    def packet_number(self):
+        &#39;&#39;&#39;int : The sequence number of the current packet for this identifier.&#39;&#39;&#39;
+        return int(self.raw[34:38])
+    
+    @property
+    def data_length(self):
+        &#39;&#39;&#39;int : The length of the data field for the current packet.&#39;&#39;&#39;
+        return int(self.raw[38:42])</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="stk.connect.AsyncHeader.async_type"><code class="name">var <span class="ident">async_type</span></code></dt>
+<dd>
+<div class="desc"><p>str : The value of the command type string.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def async_type(self):
+    &#39;&#39;&#39;str : The value of the command type string.&#39;&#39;&#39;
+    return (self.raw[9:24])[0:self.type_length]</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.AsyncHeader.data_length"><code class="name">var <span class="ident">data_length</span></code></dt>
+<dd>
+<div class="desc"><p>int : The length of the data field for the current packet.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def data_length(self):
+    &#39;&#39;&#39;int : The length of the data field for the current packet.&#39;&#39;&#39;
+    return int(self.raw[38:42])</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.AsyncHeader.header_length"><code class="name">var <span class="ident">header_length</span></code></dt>
+<dd>
+<div class="desc"><p>int : The header_length, should always be 42.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def header_length(self):
+    &#39;&#39;&#39;int : The header_length, should always be 42.&#39;&#39;&#39;
+    return int(self.raw[3:5].decode())</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.AsyncHeader.identifier"><code class="name">var <span class="ident">identifier</span></code></dt>
+<dd>
+<div class="desc"><p>int : The value of the response ID.</p>
+<p>This should be used to associate the correct responses with each
+other if commands are being processed asynchronously.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def identifier(self):
+    &#39;&#39;&#39;int : The value of the response ID.
+    
+        This should be used to associate the correct responses with each 
+        other if commands are being processed asynchronously.
+    &#39;&#39;&#39;
+    
+    return int(self.raw[24:30])</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.AsyncHeader.major_version"><code class="name">var <span class="ident">major_version</span></code></dt>
+<dd>
+<div class="desc"><p>int : The major version number.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def major_version(self):
+    &#39;&#39;&#39;int : The major version number.&#39;&#39;&#39;
+    return int(self.raw[5].decode())</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.AsyncHeader.minor_version"><code class="name">var <span class="ident">minor_version</span></code></dt>
+<dd>
+<div class="desc"><p>int : The minor version number.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def minor_version(self):
+    &#39;&#39;&#39;int : The minor version number.&#39;&#39;&#39;
+    return int(self.raw[6].decode())</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.AsyncHeader.packet_number"><code class="name">var <span class="ident">packet_number</span></code></dt>
+<dd>
+<div class="desc"><p>int : The sequence number of the current packet for this identifier.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def packet_number(self):
+    &#39;&#39;&#39;int : The sequence number of the current packet for this identifier.&#39;&#39;&#39;
+    return int(self.raw[34:38])</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.AsyncHeader.sync"><code class="name">var <span class="ident">sync</span></code></dt>
+<dd>
+<div class="desc"><p>str : The sync word, should always be "AGI"</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def sync(self):
+    &#39;&#39;&#39;str : The sync word, should always be &#34;AGI&#34;&#39;&#39;&#39;
+    return self.raw[0:3].decode()</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.AsyncHeader.total_packets"><code class="name">var <span class="ident">total_packets</span></code></dt>
+<dd>
+<div class="desc"><p>int : The total number of packets in the current identifier.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def total_packets(self):
+    &#39;&#39;&#39;int : The total number of packets in the current identifier.&#39;&#39;&#39;
+    return int(self.raw[30:34])</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.AsyncHeader.type_length"><code class="name">var <span class="ident">type_length</span></code></dt>
+<dd>
+<div class="desc"><p>int : The length of the command type string.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def type_length(self):
+    &#39;&#39;&#39;int : The length of the command type string.&#39;&#39;&#39;
+    return int(self.raw[7:9])</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.AsyncHeader.version"><code class="name">var <span class="ident">version</span></code></dt>
+<dd>
+<div class="desc"><p>str : The version in major.minor format.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def version(self):
+    &#39;&#39;&#39;str : The version in major.minor format.&#39;&#39;&#39;
+    return f&#39;{self.major_version}.{self.minor_version}&#39;</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="stk.connect.Connect"><code class="flex name class">
+<span>class <span class="ident">Connect</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>An STK Connect connection class.</p>
+<h2 id="attributes">Attributes</h2>
+<p>host : str</p>
+<pre><code>The host on which the desired instance of STK is running.
+</code></pre>
+<p>port : int</p>
+<pre><code>The port on which the desired instance is accepting connections.
+</code></pre>
+<p>address : tuple</p>
+<pre><code>The address as a tuple (host, port)
+</code></pre>
+<p>ack : bool</p>
+<pre><code>A boolean representing whether the instance is using ACK/NACK.
+
+Changing this after .connect() is called will not change the mode.
+</code></pre>
+<p>connect_attempts : int</p>
+<pre><code>The maximum number of attempts at connecting to the socket.
+</code></pre>
+<p>send_attempts : int</p>
+<pre><code>Sets the default maximum number of attempts to make while calling 
+.send() before raising STKNackError.
+</code></pre>
+<p>timeout : float</p>
+<pre><code>Sets the default timeout period for calls to .read() before 
+assuming all data was received.
+</code></pre>
+<p>Inits an STK connection object (Connect or AsyncConnect)</p>
+<h2 id="args">Args</h2>
+<p>host : str (default: 'localhost')</p>
+<p>port : int (default: 5001)</p>
+<p>ack : bool (default: True)
+Specifies whether or not to use ACK/NACK responses with STK
+Connect. Highly recommended to leave this to True.</p>
+<p>connect_attempts : int (default: 5)
+The maximum number of attempts at connecting to the socket.</p>
+<pre><code>Several attempts should be made, in case the instance of STK 
+hasn't finished initializing by the time this is called.
+</code></pre>
+<p>send_attempts : int (default: 1)
+Sets the default maximum number of attempts to make while
+calling .send() before raising STKNackError.</p>
+<p>timeout : int or float (default: 1.0)
+Sets the default timeout period for calls to .read() before
+assuming all data was received.</p>
+<pre><code>Because network traffic is unpredictable, increasing the 
+timeout will increase the likelihood that you receive all the 
+data.
+
+However, this also adds a mandatory minimum delay before the 
+read() function returns.
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Connect(_AbstractConnect):
+    @inherit_docstrings
+    def get_ack(self, message):
+        msg = self.socket.recv(3).decode()
+        if msg == &#39;ACK&#39;:
+            logging.debug(&#39;ACK Received&#39;)
+            return
+        elif msg == &#39;NAC&#39;:
+            k = self.socket.recv(1).decode()
+            msg = msg + k
+            raise STKNackError(f&#39;NACK Received: stk.send(&#34;{message.rstrip()}&#34;)&#39;)
+        else:
+            logging.error(f&#39;Expecting ACK or NACK, got: {msg}{self.socket.recv(2048)}&#39;)
+            sys.exit(1)
+    
+    def get_single_message(self):
+        header = self.socket.recv(40).decode()
+        cmd_name, length = header.rstrip().split()
+        length = int(length)
+        data = self.socket.recv(length).decode()
+        return header, data
+    
+    def get_multi_message(self):
+        hdr, data = self.get_single_message()
+        
+        messages = []
+        for i in range(int(data)):
+            sm = self.get_single_message()
+            if len(sm) &gt; 0:
+                messages.append(sm)
+        return messages
+    
+    @inherit_docstrings
+    def report(self, ObjPath, Style, FilePath, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None):
+        message = f&#39;ReportCreate */{ObjPath} Style &#34;{Style}&#34; Type &#34;Export&#34; File &#34;{FilePath}&#34;&#39;
+        if AccessObjectPath is not None: message += f&#39; AccessObject {AccessObjectPath}&#39;
+        if TimePeriod       is not None: message += f&#39; TimePeriod {TimePeriod}&#39;
+        if TimeStep         is not None: message += f&#39; TimeStep {TimeStep}&#39;
+        if AdditionalData   is not None: message += f&#39; AdditionalData &#34;{AdditionalData}&#34;&#39;
+        if Summary          is not None: message += f&#39; Summary {Summary}&#39;
+        if AllLines         is not None: message += f&#39; AllLines {AllLines}&#39;
+        
+        self.send(message)
+    
+    @inherit_docstrings
+    def report_rm(self, ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None, **kwargs):
+        message = f&#39;Report_RM */{ObjPath} Style &#34;{Style}&#34;&#39;
+        if AccessObjectPath is not None: message += f&#39; AccessObject {AccessObjectPath}&#39;
+        if TimePeriod       is not None: message += f&#39; TimePeriod {TimePeriod}&#39;
+        if TimeStep         is not None: message += f&#39; TimeStep {TimeStep}&#39;
+        if AdditionalData   is not None: message += f&#39; AdditionalData &#34;{AdditionalData}&#34;&#39;
+        if Summary          is not None: message += f&#39; Summary {Summary}&#39;
+        if AllLines         is not None: message += f&#39; AllLines {AllLines}&#39;
+        
+        self.send(message)
+        
+        buffer = self.read(**kwargs).decode()
+        if len(buffer) == 0: return []
+        
+        logging.debug(f&#39;Report_RM Returned: {buffer}&#39;)
+        return []</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>stk.connect._AbstractConnect</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="stk.connect.Connect.get_ack"><code class="name flex">
+<span>def <span class="ident">get_ack</span></span>(<span>self, message)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Block until an ACK is received from STK Connect.</p>
+<p>Users should not typically need to use this method directly, as it is
+called from .send() if the class attribute ack=True</p>
+<h2 id="args">Args</h2>
+<p>None</p>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@inherit_docstrings
+def get_ack(self, message):
+    msg = self.socket.recv(3).decode()
+    if msg == &#39;ACK&#39;:
+        logging.debug(&#39;ACK Received&#39;)
+        return
+    elif msg == &#39;NAC&#39;:
+        k = self.socket.recv(1).decode()
+        msg = msg + k
+        raise STKNackError(f&#39;NACK Received: stk.send(&#34;{message.rstrip()}&#34;)&#39;)
+    else:
+        logging.error(f&#39;Expecting ACK or NACK, got: {msg}{self.socket.recv(2048)}&#39;)
+        sys.exit(1)</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.Connect.get_multi_message"><code class="name flex">
+<span>def <span class="ident">get_multi_message</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_multi_message(self):
+    hdr, data = self.get_single_message()
+    
+    messages = []
+    for i in range(int(data)):
+        sm = self.get_single_message()
+        if len(sm) &gt; 0:
+            messages.append(sm)
+    return messages</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.Connect.get_single_message"><code class="name flex">
+<span>def <span class="ident">get_single_message</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_single_message(self):
+    header = self.socket.recv(40).decode()
+    cmd_name, length = header.rstrip().split()
+    length = int(length)
+    data = self.socket.recv(length).decode()
+    return header, data</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.Connect.report"><code class="name flex">
+<span>def <span class="ident">report</span></span>(<span>self, ObjPath, Style, FilePath, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a report in STK and save it to a file.</p>
+<h2 id="args">Args</h2>
+<p>ObjPath : str (required)</p>
+<pre><code>The STK Object Path for the desired report.
+
+e.g.
+Facility/A_Facility_Name
+Satellite/A_Satellite_Name
+</code></pre>
+<p>Style : str or path-like object (required)</p>
+<pre><code>The Style name, if it is already loaded into STK (or is a 
+default report style).
+
+Otherwise, pass a path to the desired .RST file.
+</code></pre>
+<p>FilePath : str or path-like object (required)</p>
+<pre><code>The path to the file to which the report should be written.
+</code></pre>
+<p>TimePeriod : str or None (default: None)</p>
+<pre><code>The time period to use for the report.  If None, then use the 
+default (typically the parent object's time period).
+
+Valid values:
+    UseAccessTimes
+    {TimeInterval}
+    Intervals {"&lt;FilePath&gt;" | "&lt;IntervalOrListSpec&gt;"}
+
+    Enter {TimeInterval} to define the start time and stop 
+    time for the report span. For valid {TimeInterval} values 
+    see Time Options.
+
+    Or specify UseAccessTimes to only report data during 
+    access times between the &lt;ObjectPath&gt; and an AccessObject, 
+    but you must also specify at least one AccessObject.
+
+    Or use the Intervals option to specify an STK interval
+    file for the time period or an Interval or Interval List 
+    component specification.
+
+    For help on creating the STK interval file, 
+    see Create &amp; Import External Files - Interval List 
+    in STK Help.
+
+    For information about "&lt;IntervalOrListSpec&gt;" see 
+    Component Specification.
+
+    See STK Help for more details on these options.
+</code></pre>
+<p>TimeStep : float or str (default: None)</p>
+<pre><code>The timestep to use for the report. If None, then use the 
+default (typically the parent object's timestep).
+
+Valid values:
+    &lt;Value&gt;
+    Bound &lt;Value&gt;
+    Array "&lt;TimeArraySpec&gt;"
+
+    Enter the time step &lt;Value&gt; to be used in creating the 
+    report. This value is entered in seconds and must be 
+    between 0.000001 and 1000000000.0 seconds.
+
+    Or enter Bound &lt;Value&gt; to have the report steps calculated
+    on a specific time boundary. This value is entered in 
+    seconds and must be between 0 and 3600 seconds. If 0 is 
+    entered then the default time step (usually 60 seconds) is 
+    used.
+
+    Or enter the Array keyword with a Time Array component 
+    specification to use the array times as time steps. For 
+    information about "&lt;TimeArraySpec&gt;" 
+    see Component Specification.
+</code></pre>
+<p>AdditionalData : str or None (default: None)</p>
+<pre><code>Some Report Styles require additional or pre-data, such as a 
+comparison object for the RIC report for a Satellite. For these
+types of reports you must include this option. More information
+on styles that require AdditionalData can be found at "Report 
+Additional Data" in the STK Help.
+</code></pre>
+<p>Summary : str or None (default: None)</p>
+<pre><code>Summary data is not generally included. Use this option, to 
+have the summary data included in the exported report file.
+
+Valid values:
+    Include 
+    Only
+
+Specify the Include value to have the summary included with the
+rest of the report; use the Only value to have only the summary
+data reported.
+</code></pre>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@inherit_docstrings
+def report(self, ObjPath, Style, FilePath, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None):
+    message = f&#39;ReportCreate */{ObjPath} Style &#34;{Style}&#34; Type &#34;Export&#34; File &#34;{FilePath}&#34;&#39;
+    if AccessObjectPath is not None: message += f&#39; AccessObject {AccessObjectPath}&#39;
+    if TimePeriod       is not None: message += f&#39; TimePeriod {TimePeriod}&#39;
+    if TimeStep         is not None: message += f&#39; TimeStep {TimeStep}&#39;
+    if AdditionalData   is not None: message += f&#39; AdditionalData &#34;{AdditionalData}&#34;&#39;
+    if Summary          is not None: message += f&#39; Summary {Summary}&#39;
+    if AllLines         is not None: message += f&#39; AllLines {AllLines}&#39;
+    
+    self.send(message)</code></pre>
+</details>
+</dd>
+<dt id="stk.connect.Connect.report_rm"><code class="name flex">
+<span>def <span class="ident">report_rm</span></span>(<span>self, ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a report in STK and return them via socket.</p>
+<h2 id="args">Args</h2>
+<p>ObjPath : str (required)</p>
+<pre><code>The STK Object Path for the desired report.
+
+e.g.
+Facility/A_Facility_Name
+Satellite/A_Satellite_Name
+</code></pre>
+<p>Style : str or path-like object (required)</p>
+<pre><code>The Style name, if it is already loaded into STK (or is a 
+default report style).
+
+Otherwise, pass a path to the desired .RST file.
+</code></pre>
+<p>TimePeriod : str or None (default: None)</p>
+<pre><code>The time period to use for the report.  If None, then use the
+default (typically the parent object's time period).
+
+Valid values:
+    UseAccessTimes
+    {TimeInterval}
+    Intervals {"&lt;FilePath&gt;" | "&lt;IntervalOrListSpec&gt;"}
+
+    Enter {TimeInterval} to define the start time and stop time
+    for the report span. For valid {TimeInterval} values see
+    Time Options.
+
+    Or specify UseAccessTimes to only report data during access
+    times between the &lt;ObjectPath&gt; and an AccessObject, but you
+    must also specify at least one AccessObject.
+
+    Or use the Intervals option to specify an STK interval file
+    for the time period or an Interval or Interval List 
+    component specification.
+
+    For help on creating the STK interval file, see Create &amp; 
+    Import External Files - Interval List in STK Help.
+
+    For information about "&lt;IntervalOrListSpec&gt;" 
+    see Component Specification.
+
+    See STK Help for more details on these options.
+</code></pre>
+<p>TimeStep : float or str</p>
+<pre><code>The timestep to use for the report. If None, then use the 
+default (typically the parent object's timestep).
+
+Valid values:
+    &lt;Value&gt;
+    Bound &lt;Value&gt;
+    Array "&lt;TimeArraySpec&gt;"
+
+    Enter the time step &lt;Value&gt; to be used in creating the 
+    report. This value is entered in seconds and must be 
+    between 0.000001 and 1000000000.0 seconds.
+
+    Or enter Bound &lt;Value&gt; to have the report steps calculated
+    on a specific time boundary. This value is entered in 
+    seconds and must be between 0 and 3600 seconds. If 0 is 
+    entered then the default time step (usually 60 seconds) is 
+    used.
+
+    Or enter the Array keyword with a Time Array component 
+    specification to use the array times as time steps. For 
+    information about "&lt;TimeArraySpec&gt;" 
+    see Component Specification.
+</code></pre>
+<p>AdditionalData : </p>
+<pre><code>Some Report Styles require additional or pre-data, such as a 
+comparison object for the RIC report for a Satellite. For these
+types of reports you must include this option. More information
+on styles that require AdditionalData can be found at 
+"Report Additional Data" in the STK Help.
+</code></pre>
+<p>Summary : str</p>
+<pre><code>Valid values:
+    Include 
+    Only
+
+    Summary data is not generally included. Use this option, to
+    have the summary data included in the exported report file.
+    Specify the Include value to have the summary included with
+    the rest of the report; use the Only value to have only the
+    summary data reported.
+</code></pre>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@inherit_docstrings
+def report_rm(self, ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None, **kwargs):
+    message = f&#39;Report_RM */{ObjPath} Style &#34;{Style}&#34;&#39;
+    if AccessObjectPath is not None: message += f&#39; AccessObject {AccessObjectPath}&#39;
+    if TimePeriod       is not None: message += f&#39; TimePeriod {TimePeriod}&#39;
+    if TimeStep         is not None: message += f&#39; TimeStep {TimeStep}&#39;
+    if AdditionalData   is not None: message += f&#39; AdditionalData &#34;{AdditionalData}&#34;&#39;
+    if Summary          is not None: message += f&#39; Summary {Summary}&#39;
+    if AllLines         is not None: message += f&#39; AllLines {AllLines}&#39;
+    
+    self.send(message)
+    
+    buffer = self.read(**kwargs).decode()
+    if len(buffer) == 0: return []
+    
+    logging.debug(f&#39;Report_RM Returned: {buffer}&#39;)
+    return []</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="stk" href="index.html">stk</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="stk.connect.AsyncConnect" href="#stk.connect.AsyncConnect">AsyncConnect</a></code></h4>
+<ul class="">
+<li><code><a title="stk.connect.AsyncConnect.get_ack" href="#stk.connect.AsyncConnect.get_ack">get_ack</a></code></li>
+<li><code><a title="stk.connect.AsyncConnect.get_multi_message" href="#stk.connect.AsyncConnect.get_multi_message">get_multi_message</a></code></li>
+<li><code><a title="stk.connect.AsyncConnect.get_single_message" href="#stk.connect.AsyncConnect.get_single_message">get_single_message</a></code></li>
+<li><code><a title="stk.connect.AsyncConnect.report" href="#stk.connect.AsyncConnect.report">report</a></code></li>
+<li><code><a title="stk.connect.AsyncConnect.report_rm" href="#stk.connect.AsyncConnect.report_rm">report_rm</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="stk.connect.AsyncHeader" href="#stk.connect.AsyncHeader">AsyncHeader</a></code></h4>
+<ul class="two-column">
+<li><code><a title="stk.connect.AsyncHeader.async_type" href="#stk.connect.AsyncHeader.async_type">async_type</a></code></li>
+<li><code><a title="stk.connect.AsyncHeader.data_length" href="#stk.connect.AsyncHeader.data_length">data_length</a></code></li>
+<li><code><a title="stk.connect.AsyncHeader.header_length" href="#stk.connect.AsyncHeader.header_length">header_length</a></code></li>
+<li><code><a title="stk.connect.AsyncHeader.identifier" href="#stk.connect.AsyncHeader.identifier">identifier</a></code></li>
+<li><code><a title="stk.connect.AsyncHeader.major_version" href="#stk.connect.AsyncHeader.major_version">major_version</a></code></li>
+<li><code><a title="stk.connect.AsyncHeader.minor_version" href="#stk.connect.AsyncHeader.minor_version">minor_version</a></code></li>
+<li><code><a title="stk.connect.AsyncHeader.packet_number" href="#stk.connect.AsyncHeader.packet_number">packet_number</a></code></li>
+<li><code><a title="stk.connect.AsyncHeader.sync" href="#stk.connect.AsyncHeader.sync">sync</a></code></li>
+<li><code><a title="stk.connect.AsyncHeader.total_packets" href="#stk.connect.AsyncHeader.total_packets">total_packets</a></code></li>
+<li><code><a title="stk.connect.AsyncHeader.type_length" href="#stk.connect.AsyncHeader.type_length">type_length</a></code></li>
+<li><code><a title="stk.connect.AsyncHeader.version" href="#stk.connect.AsyncHeader.version">version</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="stk.connect.Connect" href="#stk.connect.Connect">Connect</a></code></h4>
+<ul class="">
+<li><code><a title="stk.connect.Connect.get_ack" href="#stk.connect.Connect.get_ack">get_ack</a></code></li>
+<li><code><a title="stk.connect.Connect.get_multi_message" href="#stk.connect.Connect.get_multi_message">get_multi_message</a></code></li>
+<li><code><a title="stk.connect.Connect.get_single_message" href="#stk.connect.Connect.get_single_message">get_single_message</a></code></li>
+<li><code><a title="stk.connect.Connect.report" href="#stk.connect.Connect.report">report</a></code></li>
+<li><code><a title="stk.connect.Connect.report_rm" href="#stk.connect.Connect.report_rm">report_rm</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.4</a>.</p>
+</footer>
+</body>
+</html>

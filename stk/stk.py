@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Aug  4 20:13:37 2020
+
+@author: jolsten
+"""
+
 import os, sys, logging
 import subprocess
 import platform
@@ -40,47 +47,45 @@ class Run():
     '''
     Run an instance of AGI's Systems ToolKit (STK), and connect via socket
     
-    Attributes
-    ----------
-    host : str (default: localhost)
-        the hostname of the instance of STK (default: localhost)
+    Attributes:
+        host : str (default: localhost)
+            the hostname of the instance of STK (default: localhost)
+            
+        port : int (default: 5001)
+            the port number for the STK socket (default: 5001)
+            
+        stk_install_dir : path-like object
+            the path to the relevant STK executable
+            
+            Defaults: 
+                Windows:  %PROGRAMFILES%\\AGI\\STK 12
+                          %PROGRAMFILES%\\AGI\\STK 11
+                Linux  :  ~/stk
     
-    port : int (default: 5001)
-        the port number for the STK socket (default: 5001)
-    
-    stk_install_dir : path-like object
-        the path to the relevant STK executable
+        stk_config_dir : path-like object (default: ~/STK)
+            the path to the desired STK configuration directory
         
-        Defaults: 
-            Windows: %PROGRAMFILES%\\AGI\\STK 12
-                     %PROGRAMFILES%\\AGI\\STK 11
-            Linux  : ~/stk
+        vendorid : str
+            STK license Vendor ID; apparently necessary in a Linux environment
     
-    stk_config_dir : path-like object (default: ~/STK)
-        the path to the desired STK configuration directory
+        ack : bool (default: True)
+            determines whether or not ACK/NACK responses are used in
+            interacting with STK via Connect command
+    
+        run_attempts : int (default: 1)
+            maximum number of times to attempt to run an instance of STK
+    
+        connect_attempts : int (default: 5)
+            maximum number of times to attempt connecting to STK socket
         
-    vendorid : str
-        STK license Vendor ID; apparently necessary in a Linux environment
+        send_attempts : int (default: 1)
+            maximum number of attempts for each STK Connect message before a NACK
+            throws an exception
     
-    ack : bool (default: True)
-        determines whether or not ACK/NACK responses are used in interacting
-        with STK via Connect command
-    
-    run_attempts : int (default: 1)
-        maximum number of times to attempt to run an instance of STK
-    
-    connect_attempts : int (default: 5)
-        maximum number of times to attempt connecting to STK socket
-        
-    send_attempts : int (default: 1)
-        maximum number of attempts for each STK Connect message before a NACK
-        throws an exception
-    
-    port_delta : int (default: 1000)
-        in instances where STK cannot bind to the desired port, this value is
-        the number added to the port specified above before attempting to run
-        STK again
-    
+        port_delta : int (default: 1000)
+            in instances where STK cannot bind to the desired port, this value
+            is the number added to the port specified above before attempting
+            to run STK again
     
     Methods
     -------
@@ -90,10 +95,45 @@ class Run():
     send(message)
         sends the specified message to STK
     
-    report(ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None)
-    
+    report(ObjPath, Style, Type, FilePath, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None)
+        a helper function to submit ReportCreate commands
+        
+        ObjPath : str 
+            the STK Object Path (i.e. Facility/A_Facility_Name)
+        
+        Style   : str or path-like object
+            the STK report style
+            
+            if using a built-in report style, pass it as a string (i.e. "Access")
+            
+            if using a custom report style, pass the path to the .rst file as a string or path-like object
+        
+        Type
+        
+        TimePeriod : str or None (default: None)
+            the report time period
+            
+            TimePeriod {{TimeInterval} | UseAccessTimes | Intervals {"<FilePath>" | "<IntervalOrListSpec>"}}
+        
+        TimeStep : str or None (default: None)
+        
+            TimeStep {<Value> | Bound <Value> | Array "<TimeArraySpec>"}
+            
+        AccessObjectPath : str or None (default: None)
+            for reports with an access object, this provides the path to that object
+            
+        AdditionalData : str or None (default: None)
+            Some Report Styles require additional or pre-data, such as a 
+            comparison object for the RIC report for a Satellite. For these 
+            types of reports you must include this option. More information on
+            styles that require AdditionalData can be found in STK's Help
     
     report_rm(ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None, timeout=None)
+        a helper function to submit Report_RM commands which returns the data as an array
+        
+        ObjPath : str 
+            the STK Object Path (i.e. Facility/A_Facility_Name)
+        
         
     
     disconnect()
@@ -118,7 +158,7 @@ class Run():
 
         
         self.stk_install_dir    = kwargs.get('stk_install_dir', os.environ.get('STK_INSTALL_DIR', _default_install_dir() ))
-        self.stk_config_dir     = kwargs.get('stk_install_dir', os.environ.get('STK_CONFIG_DIR' , _default_config_dir()  ))
+        self.stk_config_dir     = kwargs.get('stk_config_dir',  os.environ.get('STK_CONFIG_DIR' , _default_config_dir()  ))
         
         self.stk_install_dir    = Path(self.stk_install_dir).expanduser().resolve()
         self.stk_config_dir     = Path(self.stk_config_dir ).expanduser().resolve()
@@ -126,10 +166,16 @@ class Run():
         self._process = None
         self._connect = None
     
-    def launch(self):
-        self.run()
-    
     def run(self):
+        '''Run an instance of the STK application.
+        
+        Args:
+            None
+        
+        Returns:
+            None
+        '''
+        
         if platform.system() == 'Linux':
             attempts = 0
             while True:
@@ -156,7 +202,21 @@ class Run():
         elif platform.system() == 'Windows':
             self._launch_windows()
     
+    def launch(self):
+        '''an alias of run()'''
+        
+        self.run()
+        
     def connect(self):
+        '''Connects to the STK instance via TCP/IP socket.
+        
+        Args:
+            None
+        
+        Returns:
+            None
+        '''
+
         if self.async_messaging:
             self._connect = AsyncConnect(**self._kwargs)
         else:
@@ -220,18 +280,50 @@ class Run():
         self._process = subprocess.Popen(call)
     
     def send(self, message, attempts=1):
+        '''Sends a Connect command via socket.
+        
+        Args:
+            message: A string containing the STK Connect command
+            
+            attempts: Optional; The maximum number of times to send the
+                command if a NACK is received.
+        
+        Returns:
+            None
+        
+        Examples:
+            s.send("Unload / *")
+        '''
         try:
             self._connect.send(message, attempts=attempts)
         except STKNackError:
             self._dump_stk_errors()
     
     def close(self):
+        '''
+        kills the STK instance
+
+        Returns
+        -------
+        None.
+
+        '''
+        
         self.disconnect()
         if self._process is not None:
             logging.debug('Killing STK process')
             self._process.kill()
     
     def disconnect(self):
+        '''Disconnects from the STK TCP/IP socket.
+        
+        Args:
+            None
+        
+        Returns:
+            None
+        '''
+
         if self._connect is not None:
             logging.debug('Closing STK Connect socket')
             self._connect.close()
@@ -250,6 +342,11 @@ class Run():
         self.close()
     
     def report(self, *args, **kwargs):
+        '''A helper method to create reports in STK and save them to a file.
+        
+        See Connect.report for usage
+        '''
+
         try:
             return self._connect.report(*args, **kwargs)
         except STKNackError:
@@ -257,6 +354,10 @@ class Run():
             if hasattr(self, '_queue'): self._dump_stk_errors()
     
     def report_rm(self, *args, **kwargs):
+        '''A helper method to create reports in STK and return them via socket.
+        
+        See Connect.report_rm for usage
+        '''
         try:
             return self._connect.report_rm(*args, **kwargs)
         except STKNackError:

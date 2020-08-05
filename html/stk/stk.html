@@ -1,0 +1,1097 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.4" />
+<title>stk.stk API documentation</title>
+<meta name="description" content="Created on Tue Aug
+4 20:13:37 2020 …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>stk.stk</code></h1>
+</header>
+<section id="section-intro">
+<p>Created on Tue Aug
+4 20:13:37 2020</p>
+<p>@author: jolsten</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># -*- coding: utf-8 -*-
+&#34;&#34;&#34;
+Created on Tue Aug  4 20:13:37 2020
+
+@author: jolsten
+&#34;&#34;&#34;
+
+import os, sys, logging
+import subprocess
+import platform
+import time
+from pathlib import Path
+
+from .connect import Connect, AsyncConnect
+from .exceptions import *
+from .utils import STK_DATEFMT
+
+from threading import Thread
+from queue import Queue, Empty
+ON_POSIX = &#39;posix&#39; in sys.builtin_module_names
+def _enqueue_output(out, queue):
+    for line in iter(out.readline, b&#39;&#39;):
+        queue.put(line)
+    out.close()
+
+def _default_install_dir():
+    if platform.system() == &#39;Linux&#39;:
+        for directory in [&#39;~/stk&#39;]:
+            path = Path( os.path.expandvars( Path(directory).expanduser().resolve() ) )
+            logging.debug(f&#39;Is STK_INSTALL_DIR at {path} ?&#39;)
+            if path.is_dir() and (path / &#39;bin&#39; / &#39;connectconsole&#39;).is_file():
+                logging.debug(&#39;Yes, it is!&#39;)
+                return path
+    elif platform.system() == &#39;Windows&#39;:
+        for directory in [&#39;%PROGRAMFILES%\AGI\STK 12&#39;, &#39;%PROGRAMFILES%\AGI\STK 11&#39;, &#39;%PROGRAMFILES%\AGI\STK 10&#39;]:
+            path = Path( os.path.expandvars( Path(directory).expanduser().resolve() ) )
+            logging.debug(f&#39;Is STK_INSTALL_DIR at {path} ?&#39;)
+            if path.is_dir() and (path / &#39;bin&#39; / &#39;AgUiApplication.exe&#39;).is_file():
+                logging.debug(&#39;Yes, it is!&#39;)
+                return path
+    raise FileNotFoundError(&#39;STK_INSTALL_DIR was not provided as an argument, environment variable -- or was not found in the location specified&#39;)
+
+def _default_config_dir():
+    return Path(&#39;~/STK&#39;).expanduser().resolve()
+
+class Run():
+    &#39;&#39;&#39;
+    Run an instance of AGI&#39;s Systems ToolKit (STK), and connect via socket
+    
+    Attributes:
+        host : str (default: localhost)
+            the hostname of the instance of STK (default: localhost)
+            
+        port : int (default: 5001)
+            the port number for the STK socket (default: 5001)
+            
+        stk_install_dir : path-like object
+            the path to the relevant STK executable
+            
+            Defaults: 
+                Windows:  %PROGRAMFILES%\\AGI\\STK 12
+                          %PROGRAMFILES%\\AGI\\STK 11
+                Linux  :  ~/stk
+    
+        stk_config_dir : path-like object (default: ~/STK)
+            the path to the desired STK configuration directory
+        
+        vendorid : str
+            STK license Vendor ID; apparently necessary in a Linux environment
+    
+        ack : bool (default: True)
+            determines whether or not ACK/NACK responses are used in
+            interacting with STK via Connect command
+    
+        run_attempts : int (default: 1)
+            maximum number of times to attempt to run an instance of STK
+    
+        connect_attempts : int (default: 5)
+            maximum number of times to attempt connecting to STK socket
+        
+        send_attempts : int (default: 1)
+            maximum number of attempts for each STK Connect message before a NACK
+            throws an exception
+    
+        port_delta : int (default: 1000)
+            in instances where STK cannot bind to the desired port, this value
+            is the number added to the port specified above before attempting
+            to run STK again
+    
+    Methods
+    -------
+    run(), launch()
+        launch an instance of the STK application
+    
+    send(message)
+        sends the specified message to STK
+    
+    report(ObjPath, Style, Type, FilePath, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None)
+        a helper function to submit ReportCreate commands
+        
+        ObjPath : str 
+            the STK Object Path (i.e. Facility/A_Facility_Name)
+        
+        Style   : str or path-like object
+            the STK report style
+            
+            if using a built-in report style, pass it as a string (i.e. &#34;Access&#34;)
+            
+            if using a custom report style, pass the path to the .rst file as a string or path-like object
+        
+        Type
+        
+        TimePeriod : str or None (default: None)
+            the report time period
+            
+            TimePeriod {{TimeInterval} | UseAccessTimes | Intervals {&#34;&lt;FilePath&gt;&#34; | &#34;&lt;IntervalOrListSpec&gt;&#34;}}
+        
+        TimeStep : str or None (default: None)
+        
+            TimeStep {&lt;Value&gt; | Bound &lt;Value&gt; | Array &#34;&lt;TimeArraySpec&gt;&#34;}
+            
+        AccessObjectPath : str or None (default: None)
+            for reports with an access object, this provides the path to that object
+            
+        AdditionalData : str or None (default: None)
+            Some Report Styles require additional or pre-data, such as a 
+            comparison object for the RIC report for a Satellite. For these 
+            types of reports you must include this option. More information on
+            styles that require AdditionalData can be found in STK&#39;s Help
+    
+    report_rm(ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None, timeout=None)
+        a helper function to submit Report_RM commands which returns the data as an array
+        
+        ObjPath : str 
+            the STK Object Path (i.e. Facility/A_Facility_Name)
+        
+        
+    
+    disconnect()
+        closes the socket, if it is open
+    
+    close()
+        shut down the STK application
+    &#39;&#39;&#39;
+    def __init__(self, **kwargs):
+        self._kwargs = kwargs
+        
+        self.host             =   str( kwargs.get(&#39;host&#39;, &#39;localhost&#39;     ) )
+        self.port             =   int( kwargs.get(&#39;host&#39;, 5001            ) )
+        self.vendorid         =   str( kwargs.get(&#39;vendorid&#39;,         None) )
+        self.port_delta       =   int( kwargs.get(&#39;port_delta&#39;,       1000) )
+        self.ack              =  bool( kwargs.get(&#39;ack&#39;,              True) )
+        self.run_attempts     =   int( kwargs.get(&#39;run_attempts&#39;,        1) )
+        self.connect_attempts =   int( kwargs.get(&#39;connect_attempts&#39;,    5) )
+        self.send_attempts    =   int( kwargs.get(&#39;send_attempts&#39;,       1) )
+        self.timeout          = float( kwargs.get(&#39;timeout&#39;,             1) )
+        self.async_messaging  =  bool( kwargs.get(&#39;async_messaging&#39;, False) )
+
+        
+        self.stk_install_dir    = kwargs.get(&#39;stk_install_dir&#39;, os.environ.get(&#39;STK_INSTALL_DIR&#39;, _default_install_dir() ))
+        self.stk_config_dir     = kwargs.get(&#39;stk_config_dir&#39;,  os.environ.get(&#39;STK_CONFIG_DIR&#39; , _default_config_dir()  ))
+        
+        self.stk_install_dir    = Path(self.stk_install_dir).expanduser().resolve()
+        self.stk_config_dir     = Path(self.stk_config_dir ).expanduser().resolve()
+        
+        self._process = None
+        self._connect = None
+    
+    def run(self):
+        &#39;&#39;&#39;Run an instance of the STK application.
+        
+        Args:
+            None
+        
+        Returns:
+            None
+        &#39;&#39;&#39;
+        
+        if platform.system() == &#39;Linux&#39;:
+            attempts = 0
+            while True:
+                attempts += 1
+                try:
+                    logging.debug(f&#39;Attempting to Launch STK &amp; Connect ({attempts} of {self.max_attempts}) on {self.host}:{self.port}&#39;)
+                    
+                    running_procs = subprocess.check_output([&#39;ps&#39;, &#39;aux&#39;])
+                    logging.debug(f&#39;current running connectconsole processes:\n{running_procs}&#39;)
+                    
+                    self._launch_linux()
+                    return
+                except Exception as e:
+                    logging.error(f&#39;Exception caught: {e}&#39;)
+                    try: self._process.kill()
+                    except: pass
+                finally:
+                    if attempts &gt;= self.max_attempts: 
+                        logging.critical(f&#39;Attempted to launch STK, exceeded max attempts ({self.max_attempts})&#39;)
+                        raise subprocess.CalledProcessError(1, self._process_call)
+                
+                time.sleep( 3 )
+                
+        elif platform.system() == &#39;Windows&#39;:
+            self._launch_windows()
+    
+    def launch(self):
+        &#39;&#39;&#39;an alias of run()&#39;&#39;&#39;
+        
+        self.run()
+        
+    def connect(self):
+        &#39;&#39;&#39;Connects to the STK instance via TCP/IP socket.
+        
+        Args:
+            None
+        
+        Returns:
+            None
+        &#39;&#39;&#39;
+
+        if self.async_messaging:
+            self._connect = AsyncConnect(**self._kwargs)
+        else:
+            self._connect = Connect(**self._kwargs)
+        self._connect.connect()
+    
+    def _launch_linux(self):
+        app_path = Path(self.stk_install_dir) / &#39;bin&#39; / &#39;connectconsole&#39;
+        
+        call = [
+            str(app_path),
+            &#39;--port&#39;, str(self.port),
+            &#39;--noGraphics&#39;,
+        ]
+        if self.vendorid: call.extend([&#39;--vendorid&#39;, str(self.vendorid)])
+        
+        env = {}
+        env.update(os.environ)
+        env[&#39;STK_INSTALL_DIR&#39;] = str(self.stk_install_dir)
+        env[&#39;LD_LIBRARY_PATH&#39;] = f&#39;&#39;&#39;$STK_INSTALL_DIR/bin:{env[&#39;LD_LIBRARY_PATH&#39;]}&#39;&#39;&#39;
+        env[&#39;STK_CONFIG_DIR&#39;]  = str(self.stk_config_dir)
+
+        self._process = subprocess.Popen(call, env=env, stderr=subprocess.PIPE, bufsize=1, close_fds=ON_POSIX)
+        self._process_call = &#39; &#39;.join(call)
+        
+        self._queue = Queue()
+        self._thread = Thread(target=_enqueue_output, args=(self._process.stderr, self._queue))
+        self._thread.daemon = True
+        self._thread.start()
+        
+        attempts = 0
+        while True:
+            attempts += 1
+            try:
+                line = self._queue.get_nowait().decode().rstrip()
+            except Empty:
+                logging.debug(f&#39;No output from STK yet&#39;)
+                time.sleep( 3 )
+            else:
+                logging.debug(f&#39;Got output from STK: {line}&#39;)
+                if &#39;STK Engine Runtime license not found&#39; in line:
+                    raise STKLicenseError(&#39;STK Engine Runtime license not found&#39;)
+                elif &#39;STK/CON: Error binding to socket, error&#39; in line:
+                    logging.debug(f&#39;STK could not bind to port={self.port}, setting port={self.port+self.port_delta} for retry&#39;)
+                    self.port += self.port_delta
+                    logging.debug(f&#39;Changing port number to port={self.port}&#39;)
+                    raise OSError(&#39;STK/CON: Error binding to socket, error&#39;)
+                elif &#39;STK/CON: Accepting connection requests&#39; in line:
+                    logging.debug(f&#39;Successfully started STK, it is accepting connection requests at {self.host}:{self.port}&#39;)
+                    return
+            finally:
+                if attempts &gt;= self.run_attempts:
+                    logging.debug(&#39;Killing STK Popen to retry&#39;)
+                    self._process.kill()
+                    raise subprocess.CalledProcessError(2, f&#39;&#39; + &#39; &#39;.join(call))
+                
+    def _launch_windows(self):
+        self.port = 5001
+        app_path = Path(self.stk_install_dir) / &#39;bin&#39; / &#39;AgUiApplication.exe&#39;
+        call = [str(app_path), &#39;/pers&#39;, &#39;STK&#39;]
+        self._process = subprocess.Popen(call)
+    
+    def send(self, message, attempts=1):
+        &#39;&#39;&#39;Sends a Connect command via socket.
+        
+        Args:
+            message: A string containing the STK Connect command
+            
+            attempts: Optional; The maximum number of times to send the
+                command if a NACK is received.
+        
+        Returns:
+            None
+        
+        Examples:
+            s.send(&#34;Unload / *&#34;)
+        &#39;&#39;&#39;
+        try:
+            self._connect.send(message, attempts=attempts)
+        except STKNackError:
+            self._dump_stk_errors()
+    
+    def close(self):
+        &#39;&#39;&#39;
+        kills the STK instance
+
+        Returns
+        -------
+        None.
+
+        &#39;&#39;&#39;
+        
+        self.disconnect()
+        if self._process is not None:
+            logging.debug(&#39;Killing STK process&#39;)
+            self._process.kill()
+    
+    def disconnect(self):
+        &#39;&#39;&#39;Disconnects from the STK TCP/IP socket.
+        
+        Args:
+            None
+        
+        Returns:
+            None
+        &#39;&#39;&#39;
+
+        if self._connect is not None:
+            logging.debug(&#39;Closing STK Connect socket&#39;)
+            self._connect.close()
+    
+    def _dump_stk_errors(self):
+        logging.critical(&#39;Dumping STK STDERR:&#39;)
+        while True:
+            try:
+                line = self._queue.get_nowait().decode().rstrip()
+                logging.critical(f&#39;STK Said: {line}&#39;)
+            except Empty:
+                return
+    
+    def __del__(self):
+        logging.debug(&#39;Cleaning up STK process&#39;)
+        self.close()
+    
+    def report(self, *args, **kwargs):
+        &#39;&#39;&#39;A helper method to create reports in STK and save them to a file.
+        
+        See Connect.report for usage
+        &#39;&#39;&#39;
+
+        try:
+            return self._connect.report(*args, **kwargs)
+        except STKNackError:
+            logging.warning(&#39;STK NACK on ReportCreate&#39;)
+            if hasattr(self, &#39;_queue&#39;): self._dump_stk_errors()
+    
+    def report_rm(self, *args, **kwargs):
+        &#39;&#39;&#39;A helper method to create reports in STK and return them via socket.
+        
+        See Connect.report_rm for usage
+        &#39;&#39;&#39;
+        try:
+            return self._connect.report_rm(*args, **kwargs)
+        except STKNackError:
+            logging.warning(&#39;STK NACK on Report_RM&#39;)
+            if hasattr(self, &#39;_queue&#39;): self._dump_stk_errors()
+    </code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="stk.stk.Run"><code class="flex name class">
+<span>class <span class="ident">Run</span></span>
+<span>(</span><span>**kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Run an instance of AGI's Systems ToolKit (STK), and connect via socket</p>
+<h2 id="attributes">Attributes</h2>
+<p>host : str (default: localhost)
+the hostname of the instance of STK (default: localhost)</p>
+<p>port : int (default: 5001)
+the port number for the STK socket (default: 5001)</p>
+<p>stk_install_dir : path-like object
+the path to the relevant STK executable</p>
+<pre><code>Defaults: 
+    Windows:  %PROGRAMFILES%\AGI\STK 12
+              %PROGRAMFILES%\AGI\STK 11
+    Linux  :  ~/stk
+</code></pre>
+<p>stk_config_dir : path-like object (default: ~/STK)
+the path to the desired STK configuration directory</p>
+<p>vendorid : str
+STK license Vendor ID; apparently necessary in a Linux environment</p>
+<p>ack : bool (default: True)
+determines whether or not ACK/NACK responses are used in
+interacting with STK via Connect command</p>
+<p>run_attempts : int (default: 1)
+maximum number of times to attempt to run an instance of STK</p>
+<p>connect_attempts : int (default: 5)
+maximum number of times to attempt connecting to STK socket</p>
+<p>send_attempts : int (default: 1)
+maximum number of attempts for each STK Connect message before a NACK
+throws an exception</p>
+<p>port_delta : int (default: 1000)
+in instances where STK cannot bind to the desired port, this value
+is the number added to the port specified above before attempting
+to run STK again
+Methods</p>
+<hr>
+<p>run(), launch()
+launch an instance of the STK application</p>
+<p>send(message)
+sends the specified message to STK</p>
+<p>report(ObjPath, Style, Type, FilePath, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None)
+a helper function to submit ReportCreate commands</p>
+<pre><code>ObjPath : str 
+    the STK Object Path (i.e. Facility/A_Facility_Name)
+
+Style   : str or path-like object
+    the STK report style
+
+    if using a built-in report style, pass it as a string (i.e. "Access")
+
+    if using a custom report style, pass the path to the .rst file as a string or path-like object
+
+Type
+
+TimePeriod : str or None (default: None)
+    the report time period
+
+    TimePeriod {{TimeInterval} | UseAccessTimes | Intervals {"&lt;FilePath&gt;" | "&lt;IntervalOrListSpec&gt;"}}
+
+TimeStep : str or None (default: None)
+
+    TimeStep {&lt;Value&gt; | Bound &lt;Value&gt; | Array "&lt;TimeArraySpec&gt;"}
+
+AccessObjectPath : str or None (default: None)
+    for reports with an access object, this provides the path to that object
+
+AdditionalData : str or None (default: None)
+    Some Report Styles require additional or pre-data, such as a 
+    comparison object for the RIC report for a Satellite. For these 
+    types of reports you must include this option. More information on
+    styles that require AdditionalData can be found in STK's Help
+</code></pre>
+<p>report_rm(ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None, timeout=None)
+a helper function to submit Report_RM commands which returns the data as an array</p>
+<pre><code>ObjPath : str 
+    the STK Object Path (i.e. Facility/A_Facility_Name)
+</code></pre>
+<p>disconnect()
+closes the socket, if it is open</p>
+<p>close()
+shut down the STK application</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Run():
+    &#39;&#39;&#39;
+    Run an instance of AGI&#39;s Systems ToolKit (STK), and connect via socket
+    
+    Attributes:
+        host : str (default: localhost)
+            the hostname of the instance of STK (default: localhost)
+            
+        port : int (default: 5001)
+            the port number for the STK socket (default: 5001)
+            
+        stk_install_dir : path-like object
+            the path to the relevant STK executable
+            
+            Defaults: 
+                Windows:  %PROGRAMFILES%\\AGI\\STK 12
+                          %PROGRAMFILES%\\AGI\\STK 11
+                Linux  :  ~/stk
+    
+        stk_config_dir : path-like object (default: ~/STK)
+            the path to the desired STK configuration directory
+        
+        vendorid : str
+            STK license Vendor ID; apparently necessary in a Linux environment
+    
+        ack : bool (default: True)
+            determines whether or not ACK/NACK responses are used in
+            interacting with STK via Connect command
+    
+        run_attempts : int (default: 1)
+            maximum number of times to attempt to run an instance of STK
+    
+        connect_attempts : int (default: 5)
+            maximum number of times to attempt connecting to STK socket
+        
+        send_attempts : int (default: 1)
+            maximum number of attempts for each STK Connect message before a NACK
+            throws an exception
+    
+        port_delta : int (default: 1000)
+            in instances where STK cannot bind to the desired port, this value
+            is the number added to the port specified above before attempting
+            to run STK again
+    
+    Methods
+    -------
+    run(), launch()
+        launch an instance of the STK application
+    
+    send(message)
+        sends the specified message to STK
+    
+    report(ObjPath, Style, Type, FilePath, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None)
+        a helper function to submit ReportCreate commands
+        
+        ObjPath : str 
+            the STK Object Path (i.e. Facility/A_Facility_Name)
+        
+        Style   : str or path-like object
+            the STK report style
+            
+            if using a built-in report style, pass it as a string (i.e. &#34;Access&#34;)
+            
+            if using a custom report style, pass the path to the .rst file as a string or path-like object
+        
+        Type
+        
+        TimePeriod : str or None (default: None)
+            the report time period
+            
+            TimePeriod {{TimeInterval} | UseAccessTimes | Intervals {&#34;&lt;FilePath&gt;&#34; | &#34;&lt;IntervalOrListSpec&gt;&#34;}}
+        
+        TimeStep : str or None (default: None)
+        
+            TimeStep {&lt;Value&gt; | Bound &lt;Value&gt; | Array &#34;&lt;TimeArraySpec&gt;&#34;}
+            
+        AccessObjectPath : str or None (default: None)
+            for reports with an access object, this provides the path to that object
+            
+        AdditionalData : str or None (default: None)
+            Some Report Styles require additional or pre-data, such as a 
+            comparison object for the RIC report for a Satellite. For these 
+            types of reports you must include this option. More information on
+            styles that require AdditionalData can be found in STK&#39;s Help
+    
+    report_rm(ObjPath, Style, TimePeriod=None, TimeStep=None, AccessObjectPath=None, AdditionalData=None, Summary=None, AllLines=None, timeout=None)
+        a helper function to submit Report_RM commands which returns the data as an array
+        
+        ObjPath : str 
+            the STK Object Path (i.e. Facility/A_Facility_Name)
+        
+        
+    
+    disconnect()
+        closes the socket, if it is open
+    
+    close()
+        shut down the STK application
+    &#39;&#39;&#39;
+    def __init__(self, **kwargs):
+        self._kwargs = kwargs
+        
+        self.host             =   str( kwargs.get(&#39;host&#39;, &#39;localhost&#39;     ) )
+        self.port             =   int( kwargs.get(&#39;host&#39;, 5001            ) )
+        self.vendorid         =   str( kwargs.get(&#39;vendorid&#39;,         None) )
+        self.port_delta       =   int( kwargs.get(&#39;port_delta&#39;,       1000) )
+        self.ack              =  bool( kwargs.get(&#39;ack&#39;,              True) )
+        self.run_attempts     =   int( kwargs.get(&#39;run_attempts&#39;,        1) )
+        self.connect_attempts =   int( kwargs.get(&#39;connect_attempts&#39;,    5) )
+        self.send_attempts    =   int( kwargs.get(&#39;send_attempts&#39;,       1) )
+        self.timeout          = float( kwargs.get(&#39;timeout&#39;,             1) )
+        self.async_messaging  =  bool( kwargs.get(&#39;async_messaging&#39;, False) )
+
+        
+        self.stk_install_dir    = kwargs.get(&#39;stk_install_dir&#39;, os.environ.get(&#39;STK_INSTALL_DIR&#39;, _default_install_dir() ))
+        self.stk_config_dir     = kwargs.get(&#39;stk_config_dir&#39;,  os.environ.get(&#39;STK_CONFIG_DIR&#39; , _default_config_dir()  ))
+        
+        self.stk_install_dir    = Path(self.stk_install_dir).expanduser().resolve()
+        self.stk_config_dir     = Path(self.stk_config_dir ).expanduser().resolve()
+        
+        self._process = None
+        self._connect = None
+    
+    def run(self):
+        &#39;&#39;&#39;Run an instance of the STK application.
+        
+        Args:
+            None
+        
+        Returns:
+            None
+        &#39;&#39;&#39;
+        
+        if platform.system() == &#39;Linux&#39;:
+            attempts = 0
+            while True:
+                attempts += 1
+                try:
+                    logging.debug(f&#39;Attempting to Launch STK &amp; Connect ({attempts} of {self.max_attempts}) on {self.host}:{self.port}&#39;)
+                    
+                    running_procs = subprocess.check_output([&#39;ps&#39;, &#39;aux&#39;])
+                    logging.debug(f&#39;current running connectconsole processes:\n{running_procs}&#39;)
+                    
+                    self._launch_linux()
+                    return
+                except Exception as e:
+                    logging.error(f&#39;Exception caught: {e}&#39;)
+                    try: self._process.kill()
+                    except: pass
+                finally:
+                    if attempts &gt;= self.max_attempts: 
+                        logging.critical(f&#39;Attempted to launch STK, exceeded max attempts ({self.max_attempts})&#39;)
+                        raise subprocess.CalledProcessError(1, self._process_call)
+                
+                time.sleep( 3 )
+                
+        elif platform.system() == &#39;Windows&#39;:
+            self._launch_windows()
+    
+    def launch(self):
+        &#39;&#39;&#39;an alias of run()&#39;&#39;&#39;
+        
+        self.run()
+        
+    def connect(self):
+        &#39;&#39;&#39;Connects to the STK instance via TCP/IP socket.
+        
+        Args:
+            None
+        
+        Returns:
+            None
+        &#39;&#39;&#39;
+
+        if self.async_messaging:
+            self._connect = AsyncConnect(**self._kwargs)
+        else:
+            self._connect = Connect(**self._kwargs)
+        self._connect.connect()
+    
+    def _launch_linux(self):
+        app_path = Path(self.stk_install_dir) / &#39;bin&#39; / &#39;connectconsole&#39;
+        
+        call = [
+            str(app_path),
+            &#39;--port&#39;, str(self.port),
+            &#39;--noGraphics&#39;,
+        ]
+        if self.vendorid: call.extend([&#39;--vendorid&#39;, str(self.vendorid)])
+        
+        env = {}
+        env.update(os.environ)
+        env[&#39;STK_INSTALL_DIR&#39;] = str(self.stk_install_dir)
+        env[&#39;LD_LIBRARY_PATH&#39;] = f&#39;&#39;&#39;$STK_INSTALL_DIR/bin:{env[&#39;LD_LIBRARY_PATH&#39;]}&#39;&#39;&#39;
+        env[&#39;STK_CONFIG_DIR&#39;]  = str(self.stk_config_dir)
+
+        self._process = subprocess.Popen(call, env=env, stderr=subprocess.PIPE, bufsize=1, close_fds=ON_POSIX)
+        self._process_call = &#39; &#39;.join(call)
+        
+        self._queue = Queue()
+        self._thread = Thread(target=_enqueue_output, args=(self._process.stderr, self._queue))
+        self._thread.daemon = True
+        self._thread.start()
+        
+        attempts = 0
+        while True:
+            attempts += 1
+            try:
+                line = self._queue.get_nowait().decode().rstrip()
+            except Empty:
+                logging.debug(f&#39;No output from STK yet&#39;)
+                time.sleep( 3 )
+            else:
+                logging.debug(f&#39;Got output from STK: {line}&#39;)
+                if &#39;STK Engine Runtime license not found&#39; in line:
+                    raise STKLicenseError(&#39;STK Engine Runtime license not found&#39;)
+                elif &#39;STK/CON: Error binding to socket, error&#39; in line:
+                    logging.debug(f&#39;STK could not bind to port={self.port}, setting port={self.port+self.port_delta} for retry&#39;)
+                    self.port += self.port_delta
+                    logging.debug(f&#39;Changing port number to port={self.port}&#39;)
+                    raise OSError(&#39;STK/CON: Error binding to socket, error&#39;)
+                elif &#39;STK/CON: Accepting connection requests&#39; in line:
+                    logging.debug(f&#39;Successfully started STK, it is accepting connection requests at {self.host}:{self.port}&#39;)
+                    return
+            finally:
+                if attempts &gt;= self.run_attempts:
+                    logging.debug(&#39;Killing STK Popen to retry&#39;)
+                    self._process.kill()
+                    raise subprocess.CalledProcessError(2, f&#39;&#39; + &#39; &#39;.join(call))
+                
+    def _launch_windows(self):
+        self.port = 5001
+        app_path = Path(self.stk_install_dir) / &#39;bin&#39; / &#39;AgUiApplication.exe&#39;
+        call = [str(app_path), &#39;/pers&#39;, &#39;STK&#39;]
+        self._process = subprocess.Popen(call)
+    
+    def send(self, message, attempts=1):
+        &#39;&#39;&#39;Sends a Connect command via socket.
+        
+        Args:
+            message: A string containing the STK Connect command
+            
+            attempts: Optional; The maximum number of times to send the
+                command if a NACK is received.
+        
+        Returns:
+            None
+        
+        Examples:
+            s.send(&#34;Unload / *&#34;)
+        &#39;&#39;&#39;
+        try:
+            self._connect.send(message, attempts=attempts)
+        except STKNackError:
+            self._dump_stk_errors()
+    
+    def close(self):
+        &#39;&#39;&#39;
+        kills the STK instance
+
+        Returns
+        -------
+        None.
+
+        &#39;&#39;&#39;
+        
+        self.disconnect()
+        if self._process is not None:
+            logging.debug(&#39;Killing STK process&#39;)
+            self._process.kill()
+    
+    def disconnect(self):
+        &#39;&#39;&#39;Disconnects from the STK TCP/IP socket.
+        
+        Args:
+            None
+        
+        Returns:
+            None
+        &#39;&#39;&#39;
+
+        if self._connect is not None:
+            logging.debug(&#39;Closing STK Connect socket&#39;)
+            self._connect.close()
+    
+    def _dump_stk_errors(self):
+        logging.critical(&#39;Dumping STK STDERR:&#39;)
+        while True:
+            try:
+                line = self._queue.get_nowait().decode().rstrip()
+                logging.critical(f&#39;STK Said: {line}&#39;)
+            except Empty:
+                return
+    
+    def __del__(self):
+        logging.debug(&#39;Cleaning up STK process&#39;)
+        self.close()
+    
+    def report(self, *args, **kwargs):
+        &#39;&#39;&#39;A helper method to create reports in STK and save them to a file.
+        
+        See Connect.report for usage
+        &#39;&#39;&#39;
+
+        try:
+            return self._connect.report(*args, **kwargs)
+        except STKNackError:
+            logging.warning(&#39;STK NACK on ReportCreate&#39;)
+            if hasattr(self, &#39;_queue&#39;): self._dump_stk_errors()
+    
+    def report_rm(self, *args, **kwargs):
+        &#39;&#39;&#39;A helper method to create reports in STK and return them via socket.
+        
+        See Connect.report_rm for usage
+        &#39;&#39;&#39;
+        try:
+            return self._connect.report_rm(*args, **kwargs)
+        except STKNackError:
+            logging.warning(&#39;STK NACK on Report_RM&#39;)
+            if hasattr(self, &#39;_queue&#39;): self._dump_stk_errors()</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="stk.stk.Run.close"><code class="name flex">
+<span>def <span class="ident">close</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>kills the STK instance</p>
+<h2 id="returns">Returns</h2>
+<p>None.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def close(self):
+    &#39;&#39;&#39;
+    kills the STK instance
+
+    Returns
+    -------
+    None.
+
+    &#39;&#39;&#39;
+    
+    self.disconnect()
+    if self._process is not None:
+        logging.debug(&#39;Killing STK process&#39;)
+        self._process.kill()</code></pre>
+</details>
+</dd>
+<dt id="stk.stk.Run.connect"><code class="name flex">
+<span>def <span class="ident">connect</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Connects to the STK instance via TCP/IP socket.</p>
+<h2 id="args">Args</h2>
+<p>None</p>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def connect(self):
+    &#39;&#39;&#39;Connects to the STK instance via TCP/IP socket.
+    
+    Args:
+        None
+    
+    Returns:
+        None
+    &#39;&#39;&#39;
+
+    if self.async_messaging:
+        self._connect = AsyncConnect(**self._kwargs)
+    else:
+        self._connect = Connect(**self._kwargs)
+    self._connect.connect()</code></pre>
+</details>
+</dd>
+<dt id="stk.stk.Run.disconnect"><code class="name flex">
+<span>def <span class="ident">disconnect</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Disconnects from the STK TCP/IP socket.</p>
+<h2 id="args">Args</h2>
+<p>None</p>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def disconnect(self):
+    &#39;&#39;&#39;Disconnects from the STK TCP/IP socket.
+    
+    Args:
+        None
+    
+    Returns:
+        None
+    &#39;&#39;&#39;
+
+    if self._connect is not None:
+        logging.debug(&#39;Closing STK Connect socket&#39;)
+        self._connect.close()</code></pre>
+</details>
+</dd>
+<dt id="stk.stk.Run.launch"><code class="name flex">
+<span>def <span class="ident">launch</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>an alias of run()</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def launch(self):
+    &#39;&#39;&#39;an alias of run()&#39;&#39;&#39;
+    
+    self.run()</code></pre>
+</details>
+</dd>
+<dt id="stk.stk.Run.report"><code class="name flex">
+<span>def <span class="ident">report</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A helper method to create reports in STK and save them to a file.</p>
+<p>See Connect.report for usage</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def report(self, *args, **kwargs):
+    &#39;&#39;&#39;A helper method to create reports in STK and save them to a file.
+    
+    See Connect.report for usage
+    &#39;&#39;&#39;
+
+    try:
+        return self._connect.report(*args, **kwargs)
+    except STKNackError:
+        logging.warning(&#39;STK NACK on ReportCreate&#39;)
+        if hasattr(self, &#39;_queue&#39;): self._dump_stk_errors()</code></pre>
+</details>
+</dd>
+<dt id="stk.stk.Run.report_rm"><code class="name flex">
+<span>def <span class="ident">report_rm</span></span>(<span>self, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A helper method to create reports in STK and return them via socket.</p>
+<p>See Connect.report_rm for usage</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def report_rm(self, *args, **kwargs):
+    &#39;&#39;&#39;A helper method to create reports in STK and return them via socket.
+    
+    See Connect.report_rm for usage
+    &#39;&#39;&#39;
+    try:
+        return self._connect.report_rm(*args, **kwargs)
+    except STKNackError:
+        logging.warning(&#39;STK NACK on Report_RM&#39;)
+        if hasattr(self, &#39;_queue&#39;): self._dump_stk_errors()</code></pre>
+</details>
+</dd>
+<dt id="stk.stk.Run.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Run an instance of the STK application.</p>
+<h2 id="args">Args</h2>
+<p>None</p>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(self):
+    &#39;&#39;&#39;Run an instance of the STK application.
+    
+    Args:
+        None
+    
+    Returns:
+        None
+    &#39;&#39;&#39;
+    
+    if platform.system() == &#39;Linux&#39;:
+        attempts = 0
+        while True:
+            attempts += 1
+            try:
+                logging.debug(f&#39;Attempting to Launch STK &amp; Connect ({attempts} of {self.max_attempts}) on {self.host}:{self.port}&#39;)
+                
+                running_procs = subprocess.check_output([&#39;ps&#39;, &#39;aux&#39;])
+                logging.debug(f&#39;current running connectconsole processes:\n{running_procs}&#39;)
+                
+                self._launch_linux()
+                return
+            except Exception as e:
+                logging.error(f&#39;Exception caught: {e}&#39;)
+                try: self._process.kill()
+                except: pass
+            finally:
+                if attempts &gt;= self.max_attempts: 
+                    logging.critical(f&#39;Attempted to launch STK, exceeded max attempts ({self.max_attempts})&#39;)
+                    raise subprocess.CalledProcessError(1, self._process_call)
+            
+            time.sleep( 3 )
+            
+    elif platform.system() == &#39;Windows&#39;:
+        self._launch_windows()</code></pre>
+</details>
+</dd>
+<dt id="stk.stk.Run.send"><code class="name flex">
+<span>def <span class="ident">send</span></span>(<span>self, message, attempts=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sends a Connect command via socket.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>message</code></strong></dt>
+<dd>A string containing the STK Connect command</dd>
+<dt><strong><code>attempts</code></strong></dt>
+<dd>Optional; The maximum number of times to send the
+command if a NACK is received.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None</p>
+<h2 id="examples">Examples</h2>
+<p>s.send("Unload / *")</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def send(self, message, attempts=1):
+    &#39;&#39;&#39;Sends a Connect command via socket.
+    
+    Args:
+        message: A string containing the STK Connect command
+        
+        attempts: Optional; The maximum number of times to send the
+            command if a NACK is received.
+    
+    Returns:
+        None
+    
+    Examples:
+        s.send(&#34;Unload / *&#34;)
+    &#39;&#39;&#39;
+    try:
+        self._connect.send(message, attempts=attempts)
+    except STKNackError:
+        self._dump_stk_errors()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="stk" href="index.html">stk</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="stk.stk.Run" href="#stk.stk.Run">Run</a></code></h4>
+<ul class="two-column">
+<li><code><a title="stk.stk.Run.close" href="#stk.stk.Run.close">close</a></code></li>
+<li><code><a title="stk.stk.Run.connect" href="#stk.stk.Run.connect">connect</a></code></li>
+<li><code><a title="stk.stk.Run.disconnect" href="#stk.stk.Run.disconnect">disconnect</a></code></li>
+<li><code><a title="stk.stk.Run.launch" href="#stk.stk.Run.launch">launch</a></code></li>
+<li><code><a title="stk.stk.Run.report" href="#stk.stk.Run.report">report</a></code></li>
+<li><code><a title="stk.stk.Run.report_rm" href="#stk.stk.Run.report_rm">report_rm</a></code></li>
+<li><code><a title="stk.stk.Run.run" href="#stk.stk.Run.run">run</a></code></li>
+<li><code><a title="stk.stk.Run.send" href="#stk.stk.Run.send">send</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.4</a>.</p>
+</footer>
+</body>
+</html>

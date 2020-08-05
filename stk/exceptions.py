@@ -2,7 +2,7 @@
 """
 Created on Tue Aug  4 20:13:16 2020
 
-@author: jolst
+@author: jolsten
 """
 
 import logging
