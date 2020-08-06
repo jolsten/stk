@@ -193,7 +193,7 @@ class Run():
                     try: self._process.kill()
                     except: pass
                 finally:
-                    if attempts >= self.max_attempts: 
+                    if attempts >= self.run_attempts: 
                         logging.critical(f'Attempted to launch STK, exceeded max attempts ({self.max_attempts})')
                         raise subprocess.CalledProcessError(1, self._process_call)
                 
