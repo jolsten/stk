@@ -181,7 +181,7 @@ class Run():
             while True:
                 attempts += 1
                 try:
-                    logging.debug(f'Attempting to Launch STK & Connect ({attempts} of {self.max_attempts}) on {self.host}:{self.port}')
+                    logging.debug(f'Attempting to Launch STK & Connect ({attempts} of {self.run_attempts}) on {self.host}:{self.port}')
                     
                     running_procs = subprocess.check_output(['ps', 'aux'])
                     logging.debug(f'current running connectconsole processes:\n{running_procs}')
@@ -194,7 +194,7 @@ class Run():
                     except: pass
                 finally:
                     if attempts >= self.run_attempts: 
-                        logging.critical(f'Attempted to launch STK, exceeded max attempts ({self.max_attempts})')
+                        logging.critical(f'Attempted to launch STK, exceeded max attempts ({self.run_attempts})')
                         raise subprocess.CalledProcessError(1, self._process_call)
                 
                 time.sleep( 3 )
