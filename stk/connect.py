@@ -126,6 +126,8 @@ class _AbstractConnect(metaclass=ABCMeta):
         
         if type(self) == AsyncConnect:
             self.send(f'ConControl / AsyncOn')
+        else:
+            self.send(f'ConControl / AsyncOff')
         
         if self.ack is not True:
             self.send(f'ConControl / AckOff')
@@ -477,7 +479,7 @@ class Connect(_AbstractConnect):
     def get_ack(self, message):
         msg = self.socket.recv(3).decode()
         if msg == 'ACK':
-            logging.debug('ACK Received')
+            # logging.debug('ACK Received')
             return
         elif msg == 'NAC':
             k = self.socket.recv(1).decode()
