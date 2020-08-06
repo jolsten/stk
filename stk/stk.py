@@ -150,7 +150,7 @@ class Run():
         self.vendorid         =   str( kwargs.get('vendorid',         None) )
         self.port_delta       =   int( kwargs.get('port_delta',       1000) )
         self.ack              =  bool( kwargs.get('ack',              True) )
-        self.run_attempts     =   int( kwargs.get('run_attempts',        1) )
+        self.run_attempts     =   int( kwargs.get('run_attempts',        5) )
         self.connect_attempts =   int( kwargs.get('connect_attempts',    5) )
         self.send_attempts    =   int( kwargs.get('send_attempts',       1) )
         self.timeout          = float( kwargs.get('timeout',             1) )
