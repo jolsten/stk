@@ -183,7 +183,7 @@ class Run():
                 try:
                     logging.debug(f'Attempting to Launch STK & Connect ({attempts} of {self.run_attempts}) on {self.host}:{self.port}')
                     
-                    running_procs = subprocess.check_output(['ps', 'aux'])
+                    running_procs = subprocess.check_output(['ps', 'aux']).decode()
                     logging.debug(f'current running connectconsole processes:\n{running_procs}')
                     
                     self._launch_linux()

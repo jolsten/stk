@@ -530,11 +530,19 @@ class Connect(_AbstractConnect):
         
         self.send(message)
         
-        buffer = self.read(**kwargs).decode()
-        if len(buffer) == 0: return []
+        messages = self.get_multi_message()
+        return [x[1] for x in messages]
+        # report = ''
+        # for msg in messages:
+        #     report += 
         
-        logging.debug(f'Report_RM Returned: {buffer}')
-        return []
+        # return .join()
+        
+        # buffer = self.read(**kwargs).decode()
+        # if len(buffer) == 0: return []
+        
+        # logging.debug(f'Report_RM Returned: {buffer}')
+        # return []
 
 
 class AsyncConnect(_AbstractConnect):
